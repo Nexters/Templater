@@ -1,0 +1,12 @@
+spring: 
+  datasource: 
+    initialize: true
+    driverClassName: org.h2.Driver 
+    url: jdbc:h2:~/Templater;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE 
+    username: user 
+    password:
+  jpa:
+    database: H2
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop 
