@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "roboto"
+  background-color: #ffffff;
+}
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
+header {
+  position: fixed;
+  width: 100%;
+  height: 60px;
+  z-index: 2000;
+  background-color: #000000;
+}
+nav {
+  float: right;
+}
+.logo {
+  display: inline-block;
+  height: 36px;
+  margin: 20px 10px 12px 25px;
+}
+input.search {
+  display: inline-block;
+  height: 24px;
+  border-width:0px;
+  border:none;
+  background-color: #4d4d4d;
+}
+.nav-items > li {
+  display: inline-block;
+}
+.nav-items > li > a {
+  line-height: 60px;
+  padding: 0 30px;
+  color: #ffffff;
+}
