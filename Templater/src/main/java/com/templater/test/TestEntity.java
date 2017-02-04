@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="test")
+@Table(name="test", catalog="templater")
 public class TestEntity {
 
 	@Id
@@ -31,6 +31,10 @@ public class TestEntity {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public TestEntity(){
+		
 	}
 	
 }
