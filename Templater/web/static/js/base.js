@@ -10,7 +10,8 @@ $(function () {
     $("#js_header_profile").on("click", function () {
         var offset = $(this).offset();
         var height = $(this).height();
-        var x = offset.left, y = offset.top;
+        var x = offset.left + 15;
+        var y = offset.top + 15 + height;
 
         _.load.module({
             key: this.id,
@@ -19,8 +20,8 @@ $(function () {
                 _.print.module_only(this.key, {
                     name: "Solecita",
                     email: "aboveall7035@gmail.com"
-                })(x + 15,y + height + 15).addClass("pinned");
+                })(x, y).addClass("pinned");
             }
-        })
-    })
+        });
+    });
 });
