@@ -74,13 +74,13 @@ window.Templater = function () {
             }
         },
         print: {
-            module_only: function (key, data) {
+            module_only: function (key, data, destination) {
                 $("aside#aside [data-id=" + key + "]").remove();
-                return this.module(key, data);
+                return this.module(key, data, destination);
             },
-            module: function (key, data) {
+            module: function (key, data, destination) {
                 var template = this._.get.template(key);
-                var $component = $("<div data-id='" + key + "'></div>").append(Mustache.render(template, data));
+                var $component = $("<div data-id='" + key + "'></div>").append(Mustache.render(template, data || {}));
                 return function (x, y, position) {
                     var attr = "";
                     if (typeof x === "number") {
@@ -99,9 +99,12 @@ window.Templater = function () {
                         $component.css(attr, y);
                     }
 
-                    $component.addClass("module");
-
-                    $("aside#aside").append($component);
+                    if(!destination) {
+                        $("aside#aside").append($component);
+                        $component.addClass("module");
+                        return $component;
+                    }
+                    $(destination).append($component);
                     return $component;
                 };
             }
