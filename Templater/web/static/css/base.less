@@ -1,5 +1,6 @@
 // out: base.min.css, sourcemap: false, compress: true
 @import-once "../bower_components/normalize-css/normalize.css";
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans|Roboto');
 
 @frame: 1080px;
 @color-black: #000;
@@ -17,6 +18,7 @@
   box-sizing: border-box;
   color: inherit;
   outline: none;
+  font-family: 'Roboto', 'Noto Sans', sans-serif;
 }
 
 html {
@@ -40,19 +42,19 @@ body {
 }
 
 .module {
-  position:absolute;
+  position: absolute;
   &:after {
     content: '';
     display: block;
     clear: both;
   }
 
-  display:block;
+  display: block;
   &.fixed {
-    position:fixed;
+    position: fixed;
   }
   &.pinned {
-    position:absolute;
+    position: absolute;
   }
 }
 
@@ -74,15 +76,17 @@ header#header {
       display: inline-block;
     }
 
-    & > .left, & > .right { margin:1em 0; }
+    & > .left, & > .right {
+      margin: 1em 0;
+    }
     & > .left {
       float: left;
       width: 50%;
 
       .logo {
         vertical-align: middle;
-        height: @size-h-header-in;
-        margin-right:1em;
+        height: @size-h-header-in - 0.4em;
+        margin-right: 1em;
         img {
           height: 100%;
         }
@@ -123,7 +127,7 @@ header#header {
           margin: 0 1em;
           background-color: transparent;
           border: 0;
-          cursor:pointer;
+          cursor: pointer;
 
           & > * {
             display: inline-block;
@@ -136,10 +140,10 @@ header#header {
 
             border-radius: 100%;
             background-color: @color-gray;
-            margin-right: 0.1em;
+            margin-right: 0.3em;
           }
-
-          &.profile {
+          .name {
+            font-size:1.1em;
           }
         }
       }
