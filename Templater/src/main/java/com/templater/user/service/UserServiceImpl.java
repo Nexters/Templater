@@ -36,10 +36,11 @@ public class UserServiceImpl implements UserService{
 		return userGetAllResponseList;
 	}
 	
-	@Override
-	public UserGetResponse getUser(String loginId){
-		
-	}
+//	@Override
+//	public UserGetResponse getUser(String loginId){
+//		
+//		return null;
+//	}
 	
 	@Override
 	public UserDto getUserByLoginId(String loginId){
