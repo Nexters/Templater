@@ -99,11 +99,9 @@ window.Templater = function () {
                         $component.css(attr, y);
                     }
 
-                    if(!destination) {
-                        $("aside#aside").append($component);
-                        $component.addClass("module");
-                        return $component;
-                    }
+                    $component.addClass("module");
+
+                    destination = destination || "aside#aside";
                     $(destination).append($component);
                     return $component;
                 };
