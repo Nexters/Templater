@@ -2,11 +2,11 @@ spring:
   datasource: 
     initialize: true
     driverClassName: com.mysql.jdbc.Driver 
-    url: jdbc:mysql://goyaaaaaaaa.xyz:3306?useUnicode=true&characterEncoding=utf8 
+    url: jdbc:mysql://goyaaaaaaaa.xyz:3306?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull 
     username: root
     password: open123
   jpa:
-    database: H2
+    database: mysql
     show-sql: true
     hibernate:
       ddl-auto: none
