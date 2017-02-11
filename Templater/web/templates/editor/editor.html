@@ -1,7 +1,7 @@
 <style>
     .editor-container {
       width: 200px;
-      height: 550px;
+      height: 580px;
       font-family: roboto;
       font-size: 10px;
       font-weight: bold;
@@ -9,18 +9,20 @@
     }
 
     .editor-container .editor-panel-title {
-      height: 24px;
+      height: 17px;
       background-color: #8995b6;
       color: #ffffff;
-      padding-top: 10px;
-      padding-left: 5px;
-      padding-bottom: 5px;
+      padding: 4px;
     }
 
-    .editor-panel-title img {
-      height: 15px;
+    .editor-container .editor-panel-title img {
+      height: 14px;
+      margin-right: 4px;
     }
 
+    .editor-container .editor-panel-title span {
+      vertical-align: top;
+    }
     .editor-container .editor-panel-body {
         padding: 12px 0 12px 0;
     }
@@ -69,90 +71,89 @@
 <div class="editor-container">
     <div class="editor-panel">
         <div class="editor-panel-title">
-            <img src="../../static/images/canvas-01.svg">Canvas
+          <img src="../../static/images/canvas-01.svg"><span>Canvas</span>
         </div>
         <div class="editor-panel-body">
-            <div class="editor-panel-row">
-              <label for="canvas-width" class="editor-option-label">Width</label>
-              <label class="px-label">
-                <input name="canvas-width" class="editor-px-input">
-                <span>px</span>
-              </label>
-            </div>
-            <div class="editor-panel-row">
-              <label for="canvas-height" class="editor-option-label">Height</label>
-              <label class="px-label">
-                <input name="canvas-height" class="editor-px-input">
-                <span>px</span>
-              </label>
-            </div>
-            <div class="editor-panel-row">
-                <label for="canvas-color" class="editor-option-label">Color</label>
-                <input name="canvas-color" class="editor-input">
-            </div>
+          <div class="editor-panel-row">
+            <label for="canvas-width" class="editor-option-label">Width</label>
+            <label class="px-label">
+              <input name="canvas-width" class="editor-px-input">
+              <span>px</span>
+            </label>
+          </div>
+          <div class="editor-panel-row">
+            <label for="canvas-height" class="editor-option-label">Height</label>
+            <label class="px-label">
+              <input name="canvas-height" class="editor-px-input">
+              <span>px</span>
+            </label>
+          </div>
+          <div class="editor-panel-row">
+              <label for="canvas-color" class="editor-option-label">Color</label>
+              <input name="canvas-color" class="editor-input">
+          </div>
         </div>
     </div>
     <div class="editor-panel">
-        <div class="editor-panel-title">
-            <img src="#">Shape
-        </div>
-        <div class="editor-panel-body">
-            <div class="editor-panel-row">
-              Rectangle / line
-            </div>
-            <div class="editor-panel-row">
-              <label for="shape-width" class="editor-option-label">Width</label>
-              <label class="px-label">
-                <input name="shape-width" class="editor-px-input">
-                <span>px</span>
-              </label>
-            </div>
-            <div class="editor-panel-row">
-              <label for="shape-height" class="editor-option-label">Height</label>
-              <label class="px-label">
-                <input name="shape-height" class="editor-px-input">
-                <span>px</span>
-              </label>
-            </div>
-            <div class="editor-panel-row">
-                <label for="shape-color" class="editor-option-label">Color</label>
-                <input name="shape-color" class="editor-input">
-            </div>
+      <div class="editor-panel-title">
+        <img src="../../static/images/shapes-01.svg"><span>Shape</span>
+      </div>
+      <div class="editor-panel-body">
+          <div class="editor-panel-row">
+            Rectangle / line
+          </div>
+          <div class="editor-panel-row">
+            <label for="shape-width" class="editor-option-label">Width</label>
+            <label class="px-label">
+              <input name="shape-width" class="editor-px-input">
+              <span>px</span>
+            </label>
+          </div>
+          <div class="editor-panel-row">
+            <label for="shape-height" class="editor-option-label">Height</label>
+            <label class="px-label">
+              <input name="shape-height" class="editor-px-input">
+              <span>px</span>
+            </label>
+          </div>
+          <div class="editor-panel-row">
+              <label for="shape-color" class="editor-option-label">Color</label>
+              <input name="shape-color" class="editor-input">
+          </div>
         </div>
         <div class="editor-panel">
-            <div class="editor-panel-title">
-                <img src="#">Text
+          <div class="editor-panel-title">
+            <img src="../../static/images/text_side_editor-010.svg"><span>Text</span>
+          </div>
+          <div class="editor-panel-body">
+            <div class="editor-panel-row">
+                <button>B</button>
+                <button>I</button>
+                <button>U</button>
+                <button>A</button>
             </div>
-            <div class="editor-panel-body">
-
-                <div class="editor-panel-row">
-                    <button>B</button>
-                    <button>I</button>
-                    <button>U</button>
-                    <button>A</button>
-                </div>
-                <div class="editor-panel-row">
-                    <button>left</button>
-                    <button>center</button>
-                    <button>right</button>
-                    <button>align</button>
-                </div>
-                <div class="editor-panel-row">
-                    <label for="label-font" class="editor-option-label">Font</label>
-                    <select name="label-font" class="editor-input"></select>
-                </div>
-                <div class="editor-panel-row">
-                    <label for="label-style" class="editor-option-label">Style</label>
-                    <select name="label-style" class="editor-input"></select>
-                </div>
-                <div class="editor-panel-row">
-                    <label for="label-size" class="editor-option-label">Size</label>
-                    <select name="label-size" class="editor-input"></select>
-                </div>
-                <div class="editor-panel-row">
-                    <label for="label-spacing" class="editor-option-label">Spacing</label>
-                    <select name="label-spacing" class="editor-input"></select>
-                </div>
+            <div class="editor-panel-row">
+                <button>left</button>
+                <button>center</button>
+                <button>right</button>
+                <button>align</button>
             </div>
+            <div class="editor-panel-row">
+                <label for="label-font" class="editor-option-label">Font</label>
+                <select name="label-font" class="editor-input"></select>
+            </div>
+            <div class="editor-panel-row">
+                <label for="label-style" class="editor-option-label">Style</label>
+                <select name="label-style" class="editor-input"></select>
+            </div>
+            <div class="editor-panel-row">
+                <label for="label-size" class="editor-option-label">Size</label>
+                <select name="label-size" class="editor-input"></select>
+            </div>
+            <div class="editor-panel-row">
+                <label for="label-spacing" class="editor-option-label">Spacing</label>
+                <select name="label-spacing" class="editor-input"></select>
+            </div>
+          </div>
         </div>
     </div>
