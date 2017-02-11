@@ -1,186 +1,226 @@
-<link rel="stylesheet" href="../../static/css/base.min.css">
+<link rel="stylesheet" href="./static/css/base.min.css">
 <style>
-  .editor-container {
-    width: 200px;
-    height: 580px;
-    font-size: 10px;
-    font-weight: bold;
-    background-color: #ffffff;
-    box-shadow: 0 5px 0 5px #eaecf5;
-  }
+    .editor-container {
+        width: 200px;
+        font-size: 10px;
+        font-weight: bold;
+        background-color: #ffffff;
+        -webkit-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+        -moz-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+    }
 
-  .editor-container .editor-panel-title {
-    height: 24px;
-    background-color: #8995b6;
-    color: #ffffff;
-    padding: 4px;
-  }
+    .editor-container .editor-panel-title {
+        height: 24px;
+        background-color: #8995b6;
+        color: #ffffff;
+        padding: 4px 0 4px 15px;
+    }
 
-  .editor-container .editor-panel-title img {
-    height: 14px;
-    margin-right: 4px;
-  }
+    .editor-container .editor-panel-title img {
+        height: 14px;
+        margin-right: 4px;
+        vertical-align: middle;
+    }
 
-  .editor-container .editor-panel-title span {
-    vertical-align: bottom;
-  }
-  .editor-container .editor-panel-body {
-    padding: 12px 0 12px 0;
-  }
+    .editor-container .editor-panel-title span {
+        vertical-align: middle;
+    }
 
-  .editor-container .editor-panel-row {
-    width: 200px;
-    margin: 4px 0;
-    padding-left: 10px;
-  }
+    .editor-container .editor-panel-body-canvas {
+        padding: 12px 0 12px 0;
+    }
 
-  .editor-container .editor-panel-row-center {
-    text-align: center;
-    padding-left: 0;
-  }
+    .editor-container .editor-panel-body {
+        padding-bottom:12px;
+    }
 
-  .editor-panel-row img {
-    margin-right: 10px;
-  }
+    .editor-container .editor-panel-row {
+        width: 200px;
+        margin: 4px 0;
+        padding-left: 10px;
+    }
 
-  .span-margin-right {
-    margin-right: 10px;
-    color: #8995b6;
-  }
+    .editor-container .editor-panel-row button {
+        background: 0;
+        padding:0;
+        border:0;
+        margin:0;
+    }
 
-  .editor-panel-row {
-    margin-right: 10px;
-  }
+    .editor-container .editor-panel-row button > * {
+        vertical-align: middle;
+    }
 
-  .editor-panel-row button {
-    border: 0;
-    outline: 0;
-    background-color: #ffffff;
-  }
+    .editor-container .editor-panel-row-text {
+        text-align: center;
+        padding-left: 0;
+    }
+    .editor-container .editor-panel-row-text button {
+        margin:0 5px;
+    }
 
-  .px-label {
-    width: 90px;
-    height: 25px;
-    display: inline-block;
-    color: #8995b6;
-    background-color: #eceff4;
-  }
+    .editor-container .editor-panel-row img {
+        margin-right: 10px;
+    }
 
-  .editor-option-label {
-    width: 70px;
-    display: inline-block;
-    line-height: 30px;
-    color: #8995b6;
-  }
+    .editor-container .span-margin-right {
+        margin-right: 10px;
+        color: #8995b6;
+    }
 
-  .editor-px-input {
-    width: 70px;
-    height: 25px;
-    border: none;
-    padding-right: 10px;
-    color: #8995b6;
-    background-color: #eceff4;
-    text-align: right;
-  }
+    .editor-container .editor-panel-row {
+        margin-right: 10px;
+    }
 
-  .editor-input {
-    width: 90px;
-    height: 25px;
-    border: none;
-    padding-right: 10px;
-    color: #8995b6;
-    background-color: #eceff4;
-    text-align: right;
-  }
+    .editor-container .editor-panel-row.editor-panel-row-button {
+        margin:0;
+        margin-bottom:10px;
+        padding:5px 0;
+        border-bottom:1px solid #eceff4;
+        text-align:center;
+    }
+
+    .editor-container .editor-panel-row .editor-panel-row-button button {
+        border: 0;
+        outline: 0;
+        background-color: #ffffff;
+    }
+
+    .editor-container .px-label {
+        height: 25px;
+        display: inline-block;
+        color: #8995b6;
+        background-color: #eceff4;
+    }
+
+    .editor-container .editor-option-label {
+        padding: 0 5px;
+        width: 50px;
+        display: inline-block;
+        line-height: 30px;
+        color: #8995b6;
+    }
+
+    .editor-container .editor-px-input {
+        width: 98px;
+        height: 25px;
+        border: none;
+        color: #8995b6;
+        padding: 0 5px;
+        background-color: #eceff4;
+        text-align: right;
+    }
+
+    .editor-container .editor-px-input + span {
+        display: inline-block;
+        width: 20px;
+    }
+
+    .editor-container .editor-input {
+        width: 120px;
+        height: 25px;
+        padding: 0 10px;
+        border: none;
+        color: #8995b6;
+        background-color: #eceff4;
+        text-align: right;
+    }
 </style>
 
 <div class="editor-container">
     <div class="editor-panel">
         <div class="editor-panel-title">
-          <img src="../../static/images/canvas-01.svg"><span>Canvas</span>
+            <img src="./static/images/canvas-01.svg"><span>Canvas</span>
         </div>
-        <div class="editor-panel-body">
-          <div class="editor-panel-row">
-            <label for="canvas-width" class="editor-option-label">Width</label>
-            <label class="px-label">
-              <input name="canvas-width" class="editor-px-input">
-              <span>px</span>
-            </label>
-          </div>
-          <div class="editor-panel-row">
-            <label for="canvas-height" class="editor-option-label">Height</label>
-            <label class="px-label">
-              <input name="canvas-height" class="editor-px-input">
-              <span>px</span>
-            </label>
-          </div>
-          <div class="editor-panel-row">
-              <label for="canvas-color" class="editor-option-label">Color</label>
-              <input name="canvas-color" class="editor-input">
-          </div>
+        <div class="editor-panel-body-canvas">
+            <div class="editor-panel-row">
+                <label class="editor-option-label">Width</label>
+                <label class="px-label">
+                    <input name="canvas-width" class="editor-px-input">
+                    <span>px</span>
+                </label>
+            </div>
+            <div class="editor-panel-row">
+                <label class="editor-option-label">Height</label>
+                <label class="px-label">
+                    <input name="canvas-height" class="editor-px-input">
+                    <span>px</span>
+                </label>
+            </div>
+            <div class="editor-panel-row">
+                <label class="editor-option-label">Color</label>
+                <input name="canvas-color" class="editor-input">
+            </div>
         </div>
     </div>
     <div class="editor-panel">
-      <div class="editor-panel-title">
-        <img src="../../static/images/shapes-01.svg"><span>Shape</span>
-      </div>
-      <div class="editor-panel-body">
-          <div class="editor-panel-row">
-            <img src="../../static/images/shape_rectangle-01.svg"><span class="span-margin-right">Rectangle</span>
-            <img src="../../static/images/shape_line-01.svg"><span class="span-margin-right">line</span>
-          </div>
-          <div class="editor-panel-row">
-            <label for="shape-width" class="editor-option-label">Width</label>
-            <label class="px-label">
-              <input name="shape-width" class="editor-px-input">
-              <span>px</span>
-            </label>
-          </div>
-          <div class="editor-panel-row">
-            <label for="shape-height" class="editor-option-label">Height</label>
-            <label class="px-label">
-              <input name="shape-height" class="editor-px-input">
-              <span>px</span>
-            </label>
-          </div>
-          <div class="editor-panel-row">
-              <label for="shape-color" class="editor-option-label">Color</label>
-              <input name="shape-color" class="editor-input">
-          </div>
+        <div class="editor-panel-title">
+            <img src="./static/images/shapes-01.svg"><span>Shape</span>
+        </div>
+        <div class="editor-panel-body">
+            <div class="editor-panel-row editor-panel-row-button">
+                <button class="rectangle">
+                    <img src="./static/images/shape_rectangle-01.svg">
+                    <span class="span-margin-right">Rectangle</span>
+                </button>
+                <button class="line">
+                    <img src="./static/images/shape_line-01.svg">
+                    <span class="span-margin-right">Line</span>
+                </button>
+            </div>
+            <div class="editor-panel-row">
+                <label class="editor-option-label">Width</label>
+                <label class="px-label">
+                    <input name="shape-width" class="editor-px-input">
+                    <span>px</span>
+                </label>
+            </div>
+            <div class="editor-panel-row">
+                <label class="editor-option-label">Height</label>
+                <label class="px-label">
+                    <input name="shape-height" class="editor-px-input">
+                    <span>px</span>
+                </label>
+            </div>
+            <div class="editor-panel-row">
+                <label class="editor-option-label">Color</label>
+                <input name="shape-color" class="editor-input">
+            </div>
         </div>
         <div class="editor-panel">
-          <div class="editor-panel-title">
-            <img src="../../static/images/text_side_editor-010.svg"><span>Text</span>
-          </div>
-          <div class="editor-panel-body">
-            <div class="editor-panel-row editor-panel-row-center">
-                <button><img src="../../static/images/font_bold-01.svg"></button>
-                <button><img src="../../static/images/font_italic-01.svg"></button>
-                <button><img src="../../static/images/font_underline-01.svg"></button>
-                <button><img src="../../static/images/font_highlight-01.svg"></button>
+            <div class="editor-panel-title">
+                <img src="./static/images/text_side_editor-010.svg"><span>Text</span>
             </div>
-            <div class="editor-panel-row">
-                <button>left</button>
-                <button>center</button>
-                <button>right</button>
-                <button>align</button>
+            <div class="editor-panel-body">
+                <div class="editor-panel-row editor-panel-row-text editor-panel-row-button">
+                    <button><img src="./static/images/font_bold-01.svg"></button>
+                    <button><img src="./static/images/font_italic-01.svg"></button>
+                    <button><img src="./static/images/font_underline-01.svg"></button>
+                    <button><img src="./static/images/font_highlight-01.svg"></button>
+                </div>
+                <div class="editor-panel-row editor-panel-row-button">
+                    <button>left</button>
+                    <button>center</button>
+                    <button>right</button>
+                    <button>align</button>
+                </div>
+                <div class="editor-panel-row">
+                    <label class="editor-option-label">Font</label>
+                    <select name="label-font" class="editor-input"></select>
+                </div>
+                <div class="editor-panel-row">
+                    <label class="editor-option-label">Style</label>
+                    <select name="label-style" class="editor-input"></select>
+                </div>
+                <div class="editor-panel-row">
+                    <label class="editor-option-label">Size</label>
+                    <select name="label-size" class="editor-input"></select>
+                </div>
+                <div class="editor-panel-row">
+                    <label class="editor-option-label">Spacing</label>
+                    <select name="label-spacing" class="editor-input"></select>
+                </div>
             </div>
-            <div class="editor-panel-row">
-                <label for="label-font" class="editor-option-label">Font</label>
-                <select name="label-font" class="editor-input"></select>
-            </div>
-            <div class="editor-panel-row">
-                <label for="label-style" class="editor-option-label">Style</label>
-                <select name="label-style" class="editor-input"></select>
-            </div>
-            <div class="editor-panel-row">
-                <label for="label-size" class="editor-option-label">Size</label>
-                <select name="label-size" class="editor-input"></select>
-            </div>
-            <div class="editor-panel-row">
-                <label for="label-spacing" class="editor-option-label">Spacing</label>
-                <select name="label-spacing" class="editor-input"></select>
-            </div>
-          </div>
         </div>
     </div>
