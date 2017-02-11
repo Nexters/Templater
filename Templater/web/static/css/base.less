@@ -1,9 +1,99 @@
 // out: base.min.css, sourcemap: false, compress: true
-
 @import-once "../bower_components/normalize-css/normalize.css";
+
+@frame: 1080px;
+
+@color-black: #000;
+@color-white: #fff;
+@color-gray: #2f2f2f;
+@color-icecream: #f2f5fe;
+
+@size-h-header: 5em;
 
 *, :after, :before {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  color:inherit;
+}
+
+html {
+  width:100%;
+  height: 100%;
+}
+
+body {
+  width:100%;
+  height: 100%;
+
+  background-color:@color-icecream;
+}
+
+*.frame {
+  width: 100%;
+  min-width:@frame;
+  max-width: @frame;
+  margin: 0 auto;
+}
+
+header#header {
+  background-color: @color-black;
+  color: @color-white;
+  height: @size-h-header;
+  .frame {
+    height: 100%;
+    padding: 1.5em 0.5em;
+    & > * > * {
+      display: inline-block;
+    }
+    & > .left {
+      float: left;
+      width: 50%;
+      height: 100%;
+      .logo {
+
+      }
+      .search-box {
+        height: 100%;
+        padding: 0.3em 0.5em;
+        border-radius:5px;
+        background-color: @color-gray;
+        img {
+          height: 80%;
+          vertical-align: middle;
+        }
+        .search-contents {
+          color:inherit;
+          padding:0;
+          border:0;
+          background-color:transparent;
+          vertical-align: middle;
+        }
+      }
+    }
+    & > .right {
+      float: right;
+      width: 50%;
+      height: 100%;
+      text-align:right;
+      .btn-group {
+        button {
+          margin:0 1em;
+          background-color:transparent;
+          border:0;
+          & > * { display:inline-block; }
+          .icon {
+            width:2em;
+            height: 2em;
+            line-height:2em;
+            border-radius:100%;
+            background-color:@color-gray;
+          }
+          &.profile {
+
+          }
+        }
+      }
+    }
+  }
 }
