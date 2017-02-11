@@ -1,17 +1,16 @@
 <style>
     .header-profile-card {
-        position:absolute;
-
+        background-color:white;
     }
 </style>
 <div class="header-profile-card">
     <div class="information">
         <div class="profile">
-            <div class="icon"></div>
+            <img data-default='./static/images/account icon.svg' src="{{ src }}">
         </div>
         <div class="account">
-            <div class="name"></div>
-            <div class="email"></div>
+            <div class="name">{{ name }}</div>
+            <div class="email">{{ email }}</div>
             <div class="btn-group">
                 <button class="btn-view-account">View Account</button>
             </div>
