@@ -18,6 +18,21 @@ public class UserDto {
 	public UserDto() {
 		super();
 	}
+	
+	
+	public UserDto(String loginId, String pw, String email, int certificated, String createdDate, String editedDate,
+			int withDraw, String auth) {
+		this.loginId = loginId;
+		this.pw = pw;
+		this.email = email;
+		this.certificated = certificated;
+		this.createdDate = createdDate;
+		this.editedDate = editedDate;
+		this.withDraw = withDraw;
+		this.auth = auth;
+	}
+
+
 	public long getUserId() {
 		return userId;
 	}
