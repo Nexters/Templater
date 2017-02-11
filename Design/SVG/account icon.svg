@@ -8,10 +8,10 @@
 ]>
 <svg version="1.1" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
-	 x="0px" y="0px" width="34px" height="34px" viewBox="98 33 34 34" enable-background="new 98 33 34 34" xml:space="preserve">
-<circle fill="#F45B92" cx="115" cy="50" r="17"/>
+	 x="0px" y="0px" width="34px" height="34px" viewBox="0 0 34 34" enable-background="new 0 0 34 34" xml:space="preserve">
+<circle fill="#F45B92" cx="17" cy="17" r="17"/>
 <g>
-	<path fill="#FFFFFF" d="M115,50c2.208,0,4-1.793,4-4c0-2.208-1.792-4-4-4s-4,1.792-4,4C111,48.207,112.792,50,115,50"/>
-	<path fill="#FFFFFF" d="M115,52c-2.667,0-8,1.335-8,4v2h16v-2C123,53.335,117.667,52,115,52"/>
+	<path fill="#FFFFFF" d="M17,17c2.208,0,4-1.793,4-4c0-2.208-1.792-4-4-4s-4,1.792-4,4C13,15.207,14.792,17,17,17"/>
+	<path fill="#FFFFFF" d="M17,19c-2.667,0-8,1.335-8,4v2h16v-2C25,20.335,19.667,19,17,19"/>
 </g>
 </svg>
