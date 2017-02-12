@@ -14,6 +14,12 @@ public class ApiResponseBody<T> {
 		this.statusText = HttpStatus.OK.toString();
 	}
 	
+	public ApiResponseBody(HttpStatus h){
+		this.data=null;
+		this.statusCode=h.value();
+		this.statusText=null;
+	}
+	
 	public ApiResponseBody(Integer statusCode, String statusText) {
 		this.statusCode = statusCode;
 		this.statusText = statusText;

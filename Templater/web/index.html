@@ -7,17 +7,21 @@
     <link rel="stylesheet" href="./static/css/base.min.css">
     <script src="./static/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="./static/bower_components/mustache.js/mustache.min.js"></script>
+    <script src="./static/bower_components/aramk-css-to-json/cssjson.js"></script>
+    <script src="./static/js/Templater.js"></script>
     <script src="./static/js/base.js"></script>
 </head>
 <body>
 <header id="header">
     <div class="frame">
         <div class="left">
-            <div class="logo">Templater</div>
-            <div class="search-box">
-                <img src="./static/images/icon-search.svg">
-                <input type="text" class="search-contents">
+            <div class="logo">
+                <img src="./static/images/logo.svg">
             </div>
+            <label class="search-box">
+                <img src="./static/images/search_icon.svg">
+                <input type="text" class="search-contents">
+            </label>
         </div>
         <div class="right">
             <div class="btn-group">
@@ -34,6 +38,8 @@
     </div>
 </header>
 <nav id="nav"></nav>
+<aside id="aside"></aside>
+<article id="article"></article>
 <footer id="footer"></footer>
 </body>
 </html>

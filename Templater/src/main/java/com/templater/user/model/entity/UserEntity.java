@@ -36,9 +36,24 @@ public class UserEntity {
 	@Column(name="withdraw")
 	private int withDraw;
 	
+	@Column(name="auth")
+	private String auth;
+	
 	public UserEntity(){
 		
 	}
+	
+	
+
+	public UserEntity(String loginId, String pw, String email,String auth) {
+		super();
+		this.loginId = loginId;
+		this.pw = pw;
+		this.email = email;
+		this.auth=auth;
+	}
+
+
 
 	public long getUserId() {
 		return userId;
@@ -102,6 +117,14 @@ public class UserEntity {
 
 	public void setWithDraw(int withDraw) {
 		this.withDraw = withDraw;
+	}
+
+	public String getAuth() {
+		return auth;
+	}
+
+	public void setAuth(String auth) {
+		this.auth = auth;
 	}
 	
 }
