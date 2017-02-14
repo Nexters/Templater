@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.templater.common.domain.ApiResponse;
 import com.templater.common.domain.ApiResponseBody;
 import com.templater.document.model.dto.ComponentDto;
 import com.templater.document.model.dto.DocumentDto;
+import com.templater.document.model.request.DocumentRequest;
+import com.templater.document.model.response.ComponentResponse;
 import com.templater.document.model.response.DocumentResponse;
 import com.templater.document.service.DocumentService;
 
@@ -39,10 +43,28 @@ public class DocumentController {
 	}
 
 	@RequestMapping(value = "/document", method = RequestMethod.GET)
-	public ApiResponseBody<DocumentResponse> getDocument(String docName) {
-		DocumentResponse documentResponse = new DocumentResponse();
-		
-		return new ApiResponseBody<DocumentResponse>(documentResponse);
+	public ApiResponse<DocumentRequest, ApiResponseBody<DocumentResponse>> getDocument(
+			DocumentRequest documentRequest) {
+		List<ComponentResponse> componentResponses = null;
+		long document_id = documentRequest.getDocument_id();
+		DocumentDto documentDto = documentService.getDocumentByDid(document_id);
+
+		if (documentDto == null) {
+			return new ApiResponse<DocumentRequest, ApiResponseBody<DocumentResponse>>(documentRequest,
+					new ApiResponseBody<DocumentResponse>(HttpStatus.OK.value(), "Not Found Document"));
+		}
+
+		componentResponses = documentService.getAllComponents(document_id);
+
+		if (componentResponses == null) {
+			return new ApiResponse<DocumentRequest, ApiResponseBody<DocumentResponse>>(documentRequest,
+					new ApiResponseBody<DocumentResponse>(HttpStatus.NOT_FOUND.value(), "Not Found Component"));
+		}
+
+		DocumentResponse documentResponse = new DocumentResponse(documentDto, componentResponses);
+
+		return new ApiResponse<DocumentRequest, ApiResponseBody<DocumentResponse>>(documentRequest,
+				new ApiResponseBody<DocumentResponse>(documentResponse));
 	}
 
 }

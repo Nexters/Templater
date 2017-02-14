@@ -2,6 +2,8 @@ package com.templater.document.model.response;
 
 import java.util.List;
 
+import com.templater.document.model.dto.DocumentDto;
+
 public class DocumentResponse {
 	
 	private long document_id;
@@ -12,6 +14,35 @@ public class DocumentResponse {
 	private String shared;
 	private long user_id;
 	private List<ComponentResponse> components;
+	
+	
+	
+	public DocumentResponse() {
+		super();
+	}
+
+	public DocumentResponse(DocumentDto documentDto,List<ComponentResponse> componentResponses){
+		this.document_id = documentDto.getDocument_id();
+		this.document_type = documentDto.getDocument_type();
+		this.document_name = documentDto.getDocument_name();
+		this.created_date = documentDto.getCreated_date();
+		this.modified_date = documentDto.getModified_date();
+		this.shared = documentDto.getShared();
+		this.user_id = documentDto.getUser_id();
+		this.components = componentResponses;
+	}
+	public DocumentResponse(long document_id, String document_type, String document_name, String created_date,
+			String modified_date, String shared, long user_id, List<ComponentResponse> components) {
+		super();
+		this.document_id = document_id;
+		this.document_type = document_type;
+		this.document_name = document_name;
+		this.created_date = created_date;
+		this.modified_date = modified_date;
+		this.shared = shared;
+		this.user_id = user_id;
+		this.components = components;
+	}
 
 	public long getDocument_id() {
 		return document_id;
