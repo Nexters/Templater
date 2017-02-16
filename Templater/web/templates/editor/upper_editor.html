@@ -16,7 +16,7 @@
 
   .upper-editor .upper-editor-right {
     width: 30%;
-    margin: 16px;
+    margin: 0 16px;
     display: inline-block;
     text-align: left;
   }
@@ -32,24 +32,26 @@
   .upper-editor .upper-editor-right .upper-editor-right-each {
     margin-right: 30px;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top;
   }
 
   .upper-editor .document-setup-button {
+    height: 26px;
     padding: 5px 15px;
     color: #ffffff;
     background-color: #a2adc9;
     border: 0;
     outline: 0;
+    vertical-align: text-bottom;
   }
 </style>
 <div class="upper-editor">
   <div class="upper-editor-left">
     <div class="svg-container">
-      <img src="../../static/images/undo-01.svg">
+      <img src="../../static/images/undo-01.svg" style="height:15px;width:15px;">
     </div>
     <div class="svg-container">
-      <img src="../../static/images/redo-01.svg">
+      <img src="../../static/images/redo-01.svg" style="height:15px;width:15px;">
     </div>
     <div class="svg-container">
       <img src="../../static/images/text_side_editor-01.svg">
@@ -78,8 +80,6 @@
         <option></option>
       </select>
     </div>
-    <div class="upper-editor-right-each">
-      <button class="document-setup-button">Document Setup</button>
-    </div>
+    <button class="document-setup-button">Document Setup</button>
   </div>
 </div>
