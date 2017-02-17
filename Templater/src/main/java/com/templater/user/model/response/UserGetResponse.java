@@ -5,18 +5,17 @@ public class UserGetResponse {
 	
 	private String loginId;
 	private String email;
-	private boolean certificated;
+	private int certificated;
 	private String createdDate;
-	private String modifiedDate;
+	private String editedDate;
 	
-	public UserGetResponse(String loginId, String email, boolean certificated, String createdDate,
-			String modifiedDate) {
-		super();
+	public UserGetResponse(String loginId, String email, int certificated, String createdDate,
+			String editedDate) {
 		this.loginId = loginId;
 		this.email = email;
 		this.certificated = certificated;
 		this.createdDate = createdDate;
-		this.modifiedDate = modifiedDate;
+		this.editedDate = editedDate;
 	}
 	public String getLoginId() {
 		return loginId;
@@ -30,10 +29,10 @@ public class UserGetResponse {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public boolean isCertificated() {
+	public int isCertificated() {
 		return certificated;
 	}
-	public void setCertificated(boolean certificated) {
+	public void setCertificated(int certificated) {
 		this.certificated = certificated;
 	}
 	public String getCreatedDate() {
@@ -42,11 +41,11 @@ public class UserGetResponse {
 	public void setCreatedDate(String createdDate) {
 		this.createdDate = createdDate;
 	}
-	public String getModifiedDate() {
-		return modifiedDate;
+	public String getEditedDate() {
+		return editedDate;
 	}
-	public void setModifiedDate(String modifiedDate) {
-		this.modifiedDate = modifiedDate;
+	public void setEditedDate(String editedDate) {
+		this.editedDate = editedDate;
 	}
 	
 	

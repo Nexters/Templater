@@ -36,7 +36,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-security')
     
     compile group: 'de.svenkubiak', name: 'jBCrypt', version: '0.4.1'
-	compile group: 'org.springframework.session', name: 'spring-session', version: '1.0.0.RELEASE'
+	//compile group: 'org.springframework.session', name: 'spring-session', version: '1.2.2.RELEASE'
 	
     
     runtime('mysql:mysql-connector-java')

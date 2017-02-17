@@ -1,6 +1,8 @@
 package com.templater.user.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import com.templater.user.model.entity.UserDto;
 import com.templater.user.model.entity.UserEntity;
 import com.templater.user.model.request.UserCreateRequest;
 import com.templater.user.model.response.UserGetAllResponse;
+import com.templater.user.model.response.UserGetResponse;
 import com.templater.user.repository.UserRepository;
 
 @Component
@@ -43,7 +46,13 @@ public class UserServiceImpl implements UserService{
 //	}
 	
 	@Override
-	public UserDto getUserByLoginId(String loginId){
+	public UserGetResponse getUserByLoginId(String loginId) {
+		UserEntity e = userRepository.findByLoginId(loginId);
+		return new UserGetResponse(e.getLoginId(), e.getEmail(), e.getCertificated(), e.getCreatedDate(), e.getEditedDate());
+	}
+	
+	@Override
+	public UserDto getUserDetailByLoginId(String loginId){
 		UserEntity e = userRepository.findByLoginId(loginId);
 		
 		return new UserDto(e.getLoginId(),e.getPw(),e.getEmail(),e.getCertificated(),e.getCreatedDate(),e.getEditedDate(),e.getWithDraw(),e.getAuth());
@@ -51,10 +60,14 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public int createUser(UserCreateRequest userCreateRequest){
+		
+		String createdDate = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(new Date());;
+		
 		UserEntity e = new UserEntity(
 				userCreateRequest.getLoginId(),
 				BCrypt.hashpw(userCreateRequest.getPw(), BCrypt.gensalt()),
 				userCreateRequest.getEmail(),
+				createdDate,
 				"user");
 
 		try{
@@ -65,7 +78,7 @@ public class UserServiceImpl implements UserService{
 		}
 		return HttpStatus.OK.value();
 	}
-	
+
 //	@Override
 //	public UserDto readUser(String loginId){
 //		UserEntity userEntity = userRepository.findByLoginId(loginId);

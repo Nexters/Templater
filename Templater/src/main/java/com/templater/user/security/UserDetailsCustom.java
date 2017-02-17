@@ -84,7 +84,6 @@ public class UserDetailsCustom implements UserDetails, CredentialsContainer {
 		String role = "ROLE_" + authority;
 
 		authorities.add(new SimpleGrantedAuthority(role));
-		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
 		return authorities;
 	}

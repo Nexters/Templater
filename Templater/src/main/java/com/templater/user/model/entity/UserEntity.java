@@ -46,11 +46,19 @@ public class UserEntity {
 	
 
 	public UserEntity(String loginId, String pw, String email,String auth) {
-		super();
 		this.loginId = loginId;
 		this.pw = pw;
 		this.email = email;
 		this.auth=auth;
+	}
+
+
+	public UserEntity(String loginId, String pw, String email, String createdDate, String auth) {
+		this.loginId = loginId;
+		this.pw = pw;
+		this.email = email;
+		this.createdDate = createdDate;
+		this.auth = auth;
 	}
 
 

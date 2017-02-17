@@ -1,21 +1,18 @@
 package com.templater.user.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 //import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,9 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.templater.common.domain.ApiResponseBody;
 import com.templater.user.model.entity.UserDto;
-import com.templater.user.model.entity.UserEntity;
 import com.templater.user.model.request.UserCreateRequest;
 import com.templater.user.model.response.UserGetAllResponse;
+import com.templater.user.model.response.UserGetResponse;
 import com.templater.user.security.AuthenticationRequest;
 import com.templater.user.security.AuthenticationToken;
 import com.templater.user.security.UserDetailsCustom;
@@ -41,9 +38,9 @@ public class UserController{
 	@Autowired
 	UserServiceImpl userServiceImpl;
 	
-//	@Autowired
-//	@Qualifier("authenticationManager")
-//	AuthenticationManager authenticationManager;
+	@Autowired
+	@Qualifier("org.springframework.security.authenticationManager")
+	AuthenticationManager authenticationManager;
 
 	// test api
 	@RequestMapping(value = "/getAll")
@@ -60,33 +57,58 @@ public class UserController{
 		if (resultCode == -1) {
 			return new ApiResponseBody(HttpStatus.UNAUTHORIZED.value(), "회원가입 실패");
 		}
-		return new ApiResponseBody(HttpStatus.OK);
+		return new ApiResponseBody(HttpStatus.OK.value(),HttpStatus.OK.getReasonPhrase());
 	}
 	
-	@RequestMapping(value="/{loginId}", method=RequestMethod.GET)
-	public ApiResponseBody getUser(@PathVariable String loginId){
+	@RequestMapping(value="", method=RequestMethod.GET)
+	public ApiResponseBody getUser(){
+		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+		String loginId = auth.getName();
+		try{
+			UserGetResponse userResponse = userServiceImpl.getUserByLoginId(loginId);
+			return new ApiResponseBody(userResponse);
+		}catch(Exception e){
+			e.printStackTrace();
+			return new ApiResponseBody(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value="/{loginIdParam}", method=RequestMethod.GET)
+	public ApiResponseBody getUser(@PathVariable String loginIdParam){
 		
+		String loginId = loginIdParam; 
+		System.out.println(loginId);
 		
-		
-		return null;
-//		return new ApiResponseBody();
+		try{
+			UserGetResponse userResponse = userServiceImpl.getUserByLoginId(loginId);
+			return new ApiResponseBody(userResponse);
+		}catch(Exception e){
+			e.printStackTrace();
+			return new ApiResponseBody(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+		}
 	}
 
-//	@RequestMapping(value = "/login", method = RequestMethod.POST)
-//	public AuthenticationToken login(@RequestBody AuthenticationRequest authenticationRequest, HttpSession session) {
-//		String loginId = authenticationRequest.getLoginId();
-//		String pw = authenticationRequest.getPw();
-//
-//		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginId, pw);
-//		Authentication authentication = authenticationManager.authenticate(token);
-//		SecurityContextHolder.getContext().setAuthentication(authentication);
-//		session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-//				SecurityContextHolder.getContext());
-//
-//		UserDto userDto = userServiceImpl.getUserByLoginId(loginId);
-//		UserDetailsCustom userDetails = new UserDetailsCustom(userDto,0);
-//		
-//		return new AuthenticationToken(userDetails.getUsername(), userDetails.getAuthorities(), session.getId());
-//	}
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public AuthenticationToken login(@RequestBody AuthenticationRequest authenticationRequest, HttpSession session) {
+		String loginId = authenticationRequest.getLoginId();
+		String pw = authenticationRequest.getPw();
+
+		
+		System.out.println(loginId+"/"+pw);
+		
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginId, pw);
+		
+		System.out.println(token);
+		Authentication authentication = authenticationManager.authenticate(token);
+		
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+				SecurityContextHolder.getContext());
+
+		UserDto userDto = userServiceImpl.getUserDetailByLoginId(loginId);
+		UserDetailsCustom userDetails = new UserDetailsCustom(userDto,0);
+		
+		return new AuthenticationToken(userDetails.getUsername(), userDetails.getAuthorities(), session.getId());
+	}
 
 }

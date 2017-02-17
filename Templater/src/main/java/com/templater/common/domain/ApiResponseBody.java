@@ -11,7 +11,7 @@ public class ApiResponseBody<T> {
 	public ApiResponseBody(T data) {
 		this.data = data;
 		this.statusCode = HttpStatus.OK.value();
-		this.statusText = HttpStatus.OK.toString();
+		this.statusText = HttpStatus.OK.getReasonPhrase();
 	}
 	
 	public ApiResponseBody(HttpStatus h){
