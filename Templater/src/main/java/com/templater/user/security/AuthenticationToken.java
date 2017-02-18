@@ -1,7 +1,6 @@
 package com.templater.user.security;
 
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 

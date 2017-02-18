@@ -27,7 +27,7 @@ public class UserServiceCustomImpl implements UserDetailsServiceCustom{
 	@Override
 	public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
 		
-		UserDto userDto = userServiceImpl.getUserByLoginId(loginId);
+		UserDto userDto = userServiceImpl.getUserDetailByLoginId(loginId);
 		
 		UserDetailsCustom userDetails = new UserDetailsCustom(userDto,0);
 		

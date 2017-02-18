@@ -3,6 +3,7 @@ package com.templater.user.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 //import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,9 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 
-
 import com.templater.user.repository.UserRepository;
 import com.templater.user.service.UserServiceImpl;
+
 
 @Configuration
 @EnableWebSecurity
@@ -30,6 +31,19 @@ public class SercurityConfig extends WebSecurityConfigurerAdapter {
 //	@Autowired
 //	UserServiceCustomImpl userServiceCustomImpl;
 
+	
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+
+		auth
+		.userDetailsService(new UserServiceCustomImpl(userRepository,userServiceImpl))
+		.passwordEncoder(new BCryptPasswordEncoder());
+
+	}
+	
+	
+	
+	
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
     	http
@@ -48,12 +62,12 @@ public class SercurityConfig extends WebSecurityConfigurerAdapter {
     	
     }
 	
-//    @Bean(name=BeanIds.AUTHENTICATION_MANAGER)
-//    @Override
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//    	System.out.println("dddd");
-//        return super.authenticationManagerBean();
-//    }
+    @Bean(name=BeanIds.AUTHENTICATION_MANAGER)
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+    	System.out.println("dddd");
+        return super.authenticationManagerBean();
+    }
 
 	@Bean
 	public PasswordEncoder passwordEncoder(){
