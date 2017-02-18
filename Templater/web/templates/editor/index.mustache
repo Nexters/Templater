@@ -1,21 +1,112 @@
 <style>
-    .editor-body {
-        padding:5em 1em 0 1em;
-    }
-    .editor-body .canvas {
-        margin:0 auto;
+    .upper-editor {
+        font-size: 0;
+        height: 50px;
+        width: 100%;
+        border-bottom: 1px solid #eceff4;
+        background-color: #f2f5fe;
         position:relative;
-        box-sizing:content-box;
+    }
 
-        background-color:#FFFFFF;
-        -webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
-        -moz-box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
-        box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+    .upper-editor .upper-editor-left {
+        width: 50%;
+        margin: 16px 0;
+        display: inline-block;
+        border-right: 1px solid #cad0dd;
+        text-align: right;
+        vertical-align: top;
+    }
 
-        width:595px;
-        height:842px;
+    .upper-editor .upper-editor-right {
+        width: 50%;
+        margin: 12px 0;
+        padding: 0 20px;
+        display: inline-block;
+        text-align: left;
+    }
+
+    /*#a2adc9*/
+
+    .upper-editor .svg-container {
+        margin-right: 20px;
+        display: inline-block;
+        vertical-align: text-top;
+    }
+
+    .upper-editor .upper-editor-right .upper-editor-right-each {
+        margin-right: 30px;
+        display: inline-block;
+        vertical-align: text-bottom;
+    }
+
+    .upper-editor .document-setup-button {
+        height: 26px;
+        padding: 5px 15px;
+        color: #ffffff;
+        background-color: #a2adc9;
+        border: 0;
+        outline: 0;
+        vertical-align: text-bottom;
+    }
+
+    .editor-body {
+        padding: 5em 1em 0 1em;
+        position:relative;
+        z-index:1;
+    }
+
+    .editor-body .canvas {
+        margin: 0 auto;
+        position: relative;
+        box-sizing: content-box;
+
+        background-color: #FFFFFF;
+        -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+
+        width: 595px;
+        height: 842px;
     }
 </style>
+<div class="upper-editor">
+    <div class="upper-editor-left">
+        <div class="svg-container">
+            <img src="./static/images/undo-01.svg" style="height:15px;width:15px;">
+        </div>
+        <div class="svg-container">
+            <img src="./static/images/redo-01.svg" style="height:15px;width:15px;">
+        </div>
+        <div class="svg-container">
+            <img src="./static/images/type-01.svg" style="height:15px;width:15px;">
+        </div>
+        <div class="svg-container">
+            <select>
+                <option></option>
+                <option></option>
+            </select>
+        </div>
+        <div class="svg-container">
+            <img src="./static/images/image-01.svg">
+        </div>
+        <div class="svg-container">
+            <img src="./static/images/link-01.svg" style="width:20px;height:15px;">
+        </div>
+    </div>
+
+
+    <div class="upper-editor-right">
+        <div class="upper-editor-right-each">
+            <select>
+                <option></option>
+                <option></option>
+                <option></option>
+                <option></option>
+            </select>
+        </div>
+        <button class="document-setup-button">Document Setup</button>
+    </div>
+</div>
 <div class="editor-body">
     <div class="canvas">
 

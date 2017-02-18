@@ -1,5 +1,6 @@
 $(function () {
     var _ = new Templater();
+    var route = new Router(_);
 
     $("img").on("error", function () {
         var defaultSrc = $(this).data("default");
@@ -23,5 +24,11 @@ $(function () {
                 })(x, y).addClass("pinned");
             }
         });
+    });
+    
+    route.editor({
+        nav: {
+            title: "Untitled Document"
+        }
     });
 });

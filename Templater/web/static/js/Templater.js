@@ -81,7 +81,7 @@ window.Templater = function () {
             module: function (key, data, destination) {
                 var template = this._.get.template(key);
                 var $component = $("<div data-id='" + key + "'></div>").append(Mustache.render(template, data || {}));
-                return function (x, y, position) {
+                return function (x, y, z) {
                     var attr = "";
                     if (typeof x === "number") {
                         attr = "left";
@@ -97,6 +97,10 @@ window.Templater = function () {
                             attr = "bottom";
                         }
                         $component.css(attr, y);
+                    }
+
+                    if (typeof z === "number") {
+                        $component.css("z-index", z);
                     }
 
                     $component.addClass("module");

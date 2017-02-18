@@ -9,10 +9,6 @@
 @color-icecream: #f2f5fe;
 @size-h-header-in: 2.3em;
 
-@layer-background:0;
-@layer-fixed:5;
-@layer-module:10;
-
 *,
 :after,
 :before,
@@ -47,7 +43,6 @@ body {
 
 .module {
   position: relative;
-  z-index:@layer-module;
   &:after {
     content: '';
     display: block;
