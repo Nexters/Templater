@@ -25,10 +25,16 @@ $(function () {
             }
         });
     });
-    
+
     route.editor({
         nav: {
             title: "Untitled Document"
         }
     });
+
+    // route.list({
+    //     nav: {
+    //         title: "Untitled Document"
+    //     }
+    // });
 });
