@@ -25,16 +25,4 @@ $(function () {
             }
         });
     });
-    
-    route.list({
-        body: {
-            test: "????",
-            documents: [
-                {
-                    title:"Untitled Document",
-                    date:"2017.02.17"
-                }
-            ]
-        }
-    });
 });

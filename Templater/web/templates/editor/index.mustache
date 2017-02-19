@@ -9,7 +9,7 @@
     }
 
     .upper-editor .upper-editor-left {
-        width: 50%;
+        width: 60%;
         margin: 16px 0;
         display: inline-block;
         border-right: 1px solid #cad0dd;
@@ -18,9 +18,9 @@
     }
 
     .upper-editor .upper-editor-right {
-        width: 50%;
-        margin: 12px 0;
-        padding: 0 20px;
+        width: 40%;
+        height: 50px;
+        padding: 15px 20px;
         display: inline-block;
         text-align: left;
     }
@@ -36,7 +36,7 @@
     .upper-editor .upper-editor-right .upper-editor-right-each {
         margin-right: 30px;
         display: inline-block;
-        vertical-align: text-bottom;
+        vertical-align: text-top;
     }
 
     .upper-editor .document-setup-button {
@@ -98,13 +98,15 @@
     <div class="upper-editor-right">
         <div class="upper-editor-right-each">
             <select>
-                <option></option>
-                <option></option>
-                <option></option>
-                <option></option>
+                <option value="70%">70%</option>
+                <option value="85%">85%</option>
+                <option value="100%" selected>100%</option>
+                <option value="115%">115%</option>
             </select>
         </div>
-        <button class="document-setup-button">Document Setup</button>
+        <div class="upper-editor-right-each">
+            <button class="document-setup-button">Document Setup</button>
+        </div>
     </div>
 </div>
 <div class="editor-body">
