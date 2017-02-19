@@ -16,7 +16,7 @@ window.Router = function (_, init) {
     };
 
     var panic = function () {
-        header.search(true);
+        header.search(false);
     };
 
     if (init) {
@@ -25,7 +25,30 @@ window.Router = function (_, init) {
 
     return {
         list: function (data) {
-            header.search(false);
+            data = data || {};
+            switch (data.tab) {
+                default:
+                case "document":
+                    data.body = $.extend(data.body || {}, {
+                        tab_form: "display:none;"
+                    });
+                    break;
+                case "form":
+                    data.body = $.extend(data.body || {}, {
+                        tab_document: "display:none;"
+                    });
+                    break;
+            }
+
+            var documentLength = data.body.documents ? data.body.documents.length : 0;
+            var formLength = data.body.forms ? data.body.forms.length : 0;
+            if(documentLength < 8) {
+                data.body.empty_document = new Array(8 - documentLength);
+            }
+            if(formLength < 8) {
+                data.body.empty_form = new Array(8 - formLength);
+            }
+
             _.load.module({
                 key: 'list-nav',
                 url: "./templates/list/nav.mustache",
@@ -37,9 +60,21 @@ window.Router = function (_, init) {
                     )(0, 0);
                 }
             });
+            _.load.module({
+                key: 'list-body',
+                url: "./templates/list/index.mustache",
+                callback: function () {
+                    _.print.module_only(
+                        'list-body',
+                        data.body,
+                        "article#article"
+                    )(0, 0);
+                }
+            });
         }
         ,
         editor: function (data) {
+            data = data || {};
             _.load.module({
                 key: 'editor-nav',
                 url: "./templates/editor/nav.mustache",

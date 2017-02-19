@@ -24,12 +24,17 @@
         font-size: 0;
         width: 50px;
         height: 50px;
-        background-color: #343434;
+        background: none;
         border: 0;
         border-radius: 100%;
         cursor: pointer;
         margin-right: 30px;
         vertical-align: middle;
+    }
+
+    .list-nav button.create:hover,
+    .list-nav button.create:active {
+        background-color: #343434;
     }
 
     .list-nav button.create:hover img {
@@ -54,7 +59,7 @@
         vertical-align: middle;
     }
 
-    .list-nav ul.tabs li {
+    .list-nav ul.tabs li, tab {
         position: relative;
         height: 100%;
         display: inline-block;
@@ -65,20 +70,25 @@
         color: #FFFFFF;
         list-style: none;
         text-align: center;
+        cursor: pointer;
     }
 
-    .list-nav ul.tabs li.active span:after {
+    .list-nav ul.tabs li.tab:not(.active):hover {
+        background-color: #2f2f2f;
+    }
+
+    .list-nav ul.tabs li.tab.active span:after {
         position: absolute;
         display: block;
-        content: '';
+        content: "";
         width: calc(80% - 2em);
         margin-left: 10%;
-        border-bottom: 4px solid #eb578d;
         bottom: -10px;
+        border-bottom: 4px solid #eb578d;
     }
 
     .list-nav .search-box {
-        display:inline-block;
+        display: inline-block;
         cursor: text;
         height: 30px;
         padding: 5px 10px;
@@ -90,7 +100,7 @@
     .list-nav .search-box img {
         height: 100%;
         vertical-align: middle;
-        margin-right:8px;
+        margin-right: 8px;
     }
 
     .list-nav .search-box .search-contents {
@@ -102,6 +112,16 @@
         vertical-align: middle;
     }
 </style>
+<script>
+    $(document).on("click",".list-nav ul.tabs li.tab", function () {
+        $(".list-nav ul.tabs li.tab.active").removeClass("active");
+        $(this).addClass("active");
+
+        var tabName = $(this).data("tab");
+        $("ul.cards").hide();
+        $("ul.cards." + tabName).show();
+    });
+</script>
 <div class="list-nav">
     <div class="frame">
         <div class="left">
@@ -109,10 +129,10 @@
                 <img src="./static/images/create_icon.svg">
             </button>
             <ul class="tabs">
-                <li class="document active">
+                <li class="tab active" data-tab="document">
                     <span>Document</span>
                 </li>
-                <li class="form">
+                <li class="tab" data-tab="form">
                     <span>Form</span>
                 </li>
             </ul>
