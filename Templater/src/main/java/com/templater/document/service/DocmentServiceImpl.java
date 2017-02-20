@@ -14,7 +14,9 @@ import com.templater.document.model.entity.Component;
 import com.templater.document.model.entity.Document;
 import com.templater.document.model.entity.Format;
 import com.templater.document.model.entity.Tag;
-import com.templater.document.model.response.ComponentResponse;
+import com.templater.document.model.request.SetComponentRequest;
+import com.templater.document.model.request.SetDocumentRequest;
+import com.templater.document.model.response.GetComponentResponse;
 import com.templater.document.repository.ComponentRepository;
 import com.templater.document.repository.DocumentRepository;
 import com.templater.document.repository.FormatRepository;
@@ -96,15 +98,15 @@ public class DocmentServiceImpl implements DocumentService {
 	}
 
 	@Override
-	public List<ComponentResponse> getAllComponents(long document_id) {
-		List<ComponentResponse> componentResponses = null;
+	public List<GetComponentResponse> getAllComponents(long document_id) {
+		List<GetComponentResponse> componentResponses = null;
 		List<ComponentDto> componentDtos = getComponents(document_id);
 		if (componentDtos != null && componentDtos.size() != 0) {
 			componentResponses = new ArrayList<>();
 			for (ComponentDto componentDto : componentDtos) {
 				FormatDto formatDto = getFormat(componentDto.getFormat_id());
 				TagDto tagDto = getTag(componentDto.getTag_id());
-				ComponentResponse componentResponse = new ComponentResponse(componentDto.getComponent_id());
+				GetComponentResponse componentResponse = new GetComponentResponse(componentDto.getComponent_id());
 				if (formatDto != null) {
 					componentResponse.setFormat(formatDto);
 				}
@@ -115,6 +117,39 @@ public class DocmentServiceImpl implements DocumentService {
 			}
 		}
 		return componentResponses;
+	}
+
+	@Override
+	public int setDocument(SetDocumentRequest setDocumentRequest) {
+		Document document = new Document(setDocumentRequest.getDocument());
+		documentRepository.save(document);
+
+		for (SetComponentRequest componentRequest : setDocumentRequest.getComponents()) {
+			setFormat(componentRequest.getFormat());
+			setTag(componentRequest.getTag());
+			setComponent(
+					new ComponentDto(componentRequest.getComponent_id(), componentRequest.getFormat().getFormat_id(),
+							componentRequest.getTag().getTag_id(), setDocumentRequest.getDocument().getDocument_id()));
+		}
+		
+		return 0;
+	}
+
+	@Override
+	public int setComponent(ComponentDto componentDto) {
+		
+		//documentRepository.save(entity);
+		return 0;
+	}
+
+	@Override
+	public int setFormat(FormatDto formatDto) {
+		return 0;
+	}
+
+	@Override
+	public int setTag(TagDto tagDto) {
+		return 0;
 	}
 
 }

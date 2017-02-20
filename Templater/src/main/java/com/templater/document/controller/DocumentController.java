@@ -13,9 +13,11 @@ import com.templater.common.domain.ApiResponse;
 import com.templater.common.domain.ApiResponseBody;
 import com.templater.document.model.dto.ComponentDto;
 import com.templater.document.model.dto.DocumentDto;
-import com.templater.document.model.request.DocumentRequest;
-import com.templater.document.model.response.ComponentResponse;
-import com.templater.document.model.response.DocumentResponse;
+import com.templater.document.model.request.GetDocumentRequest;
+import com.templater.document.model.request.SetDocumentRequest;
+import com.templater.document.model.response.GetComponentResponse;
+import com.templater.document.model.response.GetDocumentResponse;
+import com.templater.document.model.response.SetDocumentResponse;
 import com.templater.document.service.DocumentService;
 
 @RestController
@@ -43,28 +45,46 @@ public class DocumentController {
 	}
 
 	@RequestMapping(value = "/document", method = RequestMethod.GET)
-	public ApiResponse<DocumentRequest, ApiResponseBody<DocumentResponse>> getDocument(
-			DocumentRequest documentRequest) {
-		List<ComponentResponse> componentResponses = null;
+	public ApiResponse<GetDocumentRequest, ApiResponseBody<GetDocumentResponse>> getDocument(
+			GetDocumentRequest documentRequest) {
+		List<GetComponentResponse> componentResponses = null;
 		long document_id = documentRequest.getDocument_id();
 		DocumentDto documentDto = documentService.getDocumentByDid(document_id);
 
 		if (documentDto == null) {
-			return new ApiResponse<DocumentRequest, ApiResponseBody<DocumentResponse>>(documentRequest,
-					new ApiResponseBody<DocumentResponse>(HttpStatus.OK.value(), "Not Found Document"));
+			return new ApiResponse<GetDocumentRequest, ApiResponseBody<GetDocumentResponse>>(documentRequest,
+					new ApiResponseBody<GetDocumentResponse>(HttpStatus.OK.value(), "Not Found Document"));
 		}
 
 		componentResponses = documentService.getAllComponents(document_id);
 
 		if (componentResponses == null) {
-			return new ApiResponse<DocumentRequest, ApiResponseBody<DocumentResponse>>(documentRequest,
-					new ApiResponseBody<DocumentResponse>(HttpStatus.NOT_FOUND.value(), "Not Found Component"));
+			return new ApiResponse<GetDocumentRequest, ApiResponseBody<GetDocumentResponse>>(documentRequest,
+					new ApiResponseBody<GetDocumentResponse>(HttpStatus.NOT_FOUND.value(), "Not Found Component"));
 		}
 
-		DocumentResponse documentResponse = new DocumentResponse(documentDto, componentResponses);
+		GetDocumentResponse documentResponse = new GetDocumentResponse(documentDto, componentResponses);
 
-		return new ApiResponse<DocumentRequest, ApiResponseBody<DocumentResponse>>(documentRequest,
-				new ApiResponseBody<DocumentResponse>(documentResponse));
+		return new ApiResponse<GetDocumentRequest, ApiResponseBody<GetDocumentResponse>>(documentRequest,
+				new ApiResponseBody<GetDocumentResponse>(documentResponse));
 	}
 
+	@RequestMapping(value = "/document", method = RequestMethod.POST)
+	public ApiResponse<SetDocumentRequest, ApiResponseBody<SetDocumentResponse>> setDocument(
+			SetDocumentRequest documentRequest) {
+		//documentService.setDocument(documentRequest);
+		return null;
+	}
+
+	@RequestMapping(value = "/document", method = RequestMethod.PUT)
+	public ApiResponse<GetDocumentRequest, ApiResponseBody<GetDocumentResponse>> updateDocument(
+			GetDocumentRequest documentRequest) {
+		return null;
+	}
+
+	@RequestMapping(value = "/document", method = RequestMethod.DELETE)
+	public ApiResponse<GetDocumentRequest, ApiResponseBody<GetDocumentResponse>> deleteDocument(
+			GetDocumentRequest documentRequest) {
+		return null;
+	}
 }

@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.templater.document.model.dto.DocumentDto;
+
 @Entity
 @Table(name = "document", catalog = "templater")
 public class Document {
@@ -36,6 +38,21 @@ public class Document {
 
 	@OneToMany(mappedBy = "document_id", cascade = CascadeType.ALL)
 	private List<Component> component;
+
+	public Document() {
+		super();
+	}
+
+	public Document(DocumentDto documentDto) {
+		this.document_id = documentDto.getDocument_id();
+		this.document_name = documentDto.getDocument_name();
+		this.document_type = documentDto.getDocument_type();
+		this.created_date = documentDto.getCreated_date();
+		this.modified_date = documentDto.getModified_date();
+		this.shared = documentDto.getShared();
+		this.user_id = documentDto.getUser_id();
+
+	}
 
 	public long getDocument_id() {
 		return document_id;

@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.templater.document.model.dto.TagDto;
+
 @Entity
 @Table(name = "tag", catalog = "templater")
 public class Tag {
@@ -28,6 +30,17 @@ public class Tag {
 
 	@OneToMany(mappedBy = "tag_id", cascade = CascadeType.ALL)
 	private List<Component> component;
+
+	public Tag() {
+		super();
+	}
+
+	public Tag(TagDto tagDto) {
+		this.tag_id = tagDto.getTag_id();
+		this.tag_name = tagDto.getTag_name();
+		this.tag_content = tagDto.getTag_content();
+		this.parent_tag_id = tagDto.getParent_tag_id();
+	}
 
 	public long getTag_id() {
 		return tag_id;

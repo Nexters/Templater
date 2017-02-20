@@ -1,13 +1,13 @@
 package com.templater.document.model.request;
 
-public class DocumentRequest {
+public class GetDocumentRequest {
 	private long document_id;
 
-	public DocumentRequest() {
+	public GetDocumentRequest() {
 		super();
 	}
 
-	public DocumentRequest(long document_id) {
+	public GetDocumentRequest(long document_id) {
 		super();
 		this.document_id = document_id;
 	}

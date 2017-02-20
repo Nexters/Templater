@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.templater.document.model.dto.DocumentDto;
 
-public class DocumentResponse {
+public class GetDocumentResponse {
 	
 	private long document_id;
 	private String document_type;
@@ -13,15 +13,15 @@ public class DocumentResponse {
 	private String modified_date;
 	private String shared;
 	private long user_id;
-	private List<ComponentResponse> components;
+	private List<GetComponentResponse> components;
 	
 	
 	
-	public DocumentResponse() {
+	public GetDocumentResponse() {
 		super();
 	}
 
-	public DocumentResponse(DocumentDto documentDto,List<ComponentResponse> componentResponses){
+	public GetDocumentResponse(DocumentDto documentDto,List<GetComponentResponse> componentResponses){
 		this.document_id = documentDto.getDocument_id();
 		this.document_type = documentDto.getDocument_type();
 		this.document_name = documentDto.getDocument_name();
@@ -31,8 +31,8 @@ public class DocumentResponse {
 		this.user_id = documentDto.getUser_id();
 		this.components = componentResponses;
 	}
-	public DocumentResponse(long document_id, String document_type, String document_name, String created_date,
-			String modified_date, String shared, long user_id, List<ComponentResponse> components) {
+	public GetDocumentResponse(long document_id, String document_type, String document_name, String created_date,
+			String modified_date, String shared, long user_id, List<GetComponentResponse> components) {
 		super();
 		this.document_id = document_id;
 		this.document_type = document_type;
@@ -100,11 +100,11 @@ public class DocumentResponse {
 		this.user_id = user_id;
 	}
 
-	public List<ComponentResponse> getComponents() {
+	public List<GetComponentResponse> getComponents() {
 		return components;
 	}
 
-	public void setComponents(List<ComponentResponse> components) {
+	public void setComponents(List<GetComponentResponse> components) {
 		this.components = components;
 	}
 

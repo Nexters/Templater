@@ -1,28 +1,12 @@
-package com.templater.document.model.response;
+package com.templater.document.model.request;
 
 import com.templater.document.model.dto.FormatDto;
 import com.templater.document.model.dto.TagDto;
 
-public class ComponentResponse {
+public class SetComponentRequest {
 	private long component_id;
 	private FormatDto format;
 	private TagDto tag;
-
-	public ComponentResponse() {
-		super();
-	}
-
-	public ComponentResponse(long component_id) {
-		super();
-		this.component_id = component_id;
-	}
-
-	public ComponentResponse(long component_id, FormatDto format, TagDto tag) {
-		super();
-		this.component_id = component_id;
-		this.format = format;
-		this.tag = tag;
-	}
 
 	public long getComponent_id() {
 		return component_id;
@@ -50,7 +34,7 @@ public class ComponentResponse {
 
 	@Override
 	public String toString() {
-		return "ComponentResponse [component_id=" + component_id + ", format=" + format + ", tag=" + tag + "]";
+		return "SetComponentRequest [component_id=" + component_id + ", format=" + format + ", tag=" + tag + "]";
 	}
 
 }

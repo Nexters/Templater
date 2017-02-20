@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.templater.document.model.dto.FormatDto;
+
 @Entity
 @Table(name = "format", catalog = "templater")
 public class Format {
@@ -27,6 +29,17 @@ public class Format {
 
 	@OneToMany(mappedBy = "format_id", cascade = CascadeType.ALL)
 	private List<Component> component;
+
+	public Format() {
+		super();
+	}
+
+	public Format(FormatDto formatDto) {
+		this.format_id = formatDto.getFormat_id();
+		this.format_name = formatDto.getFormat_name();
+		this.format_type = formatDto.getFormat_type();
+		this.format_prop = formatDto.getFormat_prop();
+	}
 
 	public long getFormat_id() {
 		return format_id;

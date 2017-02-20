@@ -14,4 +14,5 @@ public interface ComponentRepository extends JpaRepository<Component, Long>{
 	
 	@Query("select c from Component c where c.document_id=?1")
 	public List<Component> getComponents(Document document);
+
 }

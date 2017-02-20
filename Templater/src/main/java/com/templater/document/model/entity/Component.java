@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.templater.document.model.dto.ComponentDto;
+
 @Entity
 @Table(name = "component", catalog = "templater")
 public class Component {
@@ -27,6 +29,15 @@ public class Component {
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "document_id")
 	private Document document_id;
+
+	public Component() {
+		super();
+	}
+	public Component(ComponentDto componentDto) {
+		this.component_id = componentDto.getComponent_id();
+		this.format_id.setFormat_id(componentDto.getFormat_id());
+		this.tag_id.setTag_id(componentDto.getTag_id());
+	}
 
 	public long getComponent_id() {
 		return component_id;
