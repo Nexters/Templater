@@ -31,9 +31,8 @@ public class Format {
 	private List<Component> component;
 
 	public Format() {
-		super();
 	}
-
+	
 	public Format(FormatDto formatDto) {
 		this.format_id = formatDto.getFormat_id();
 		this.format_name = formatDto.getFormat_name();

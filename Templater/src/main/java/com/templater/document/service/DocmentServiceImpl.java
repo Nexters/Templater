@@ -1,6 +1,8 @@
 package com.templater.document.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,4 +154,26 @@ public class DocmentServiceImpl implements DocumentService {
 		return 0;
 	}
 
+	@Override
+	public int updateDocument(SetDocumentRequest documentRequest){
+		//1 성공, -1 에러, 0 값이404(update시 찾는조건이없을때)
+		String modified = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(new Date());
+		try{
+			DocumentDto d = documentRequest.getDocument();
+			documentRepository.updateDocument(d.getDocument_id(), d.getDocument_type(), d.getDocument_name(), modified, d.getShared());
+			
+			List<SetComponentRequest> components = documentRequest.getComponents();
+			for(SetComponentRequest r : components){
+				FormatDto f = r.getFormat();
+				formatRepository.updateFormat(f.getFormat_id(), f.getFormat_name(), f.getFormat_type(), f.getFormat_prop());
+				
+				TagDto t = r.getTag();
+				tagRepository.updateTag(t.getTag_id(), t.getTag_name(), t.getTag_content(), t.getParent_tag_id());
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return -1;
+		}
+		return 1;
+	}
 }

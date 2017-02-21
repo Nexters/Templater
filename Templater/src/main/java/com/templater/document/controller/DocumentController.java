@@ -77,8 +77,15 @@ public class DocumentController {
 	}
 
 	@RequestMapping(value = "/document", method = RequestMethod.PUT)
-	public ApiResponse<GetDocumentRequest, ApiResponseBody<GetDocumentResponse>> updateDocument(
-			GetDocumentRequest documentRequest) {
+	public ApiResponse<SetDocumentRequest, ApiResponseBody<SetDocumentResponse>> updateDocument(SetDocumentRequest documentRequest) {
+		
+//		int result = documentService.updateDocument(documentRequest);
+//		
+//		if(result == -1){
+//			return new ApiResponse<SetDocumentRequest, ApiResponseBody<SetDocumentResponse>>(documentRequest, new ApiResponseBody<SetDocumentResponse>(HttpStatus.BAD_REQUEST));
+//		}
+//		return new ApiResponse<SetDocumentRequest, ApiResponseBody<SetDocumentResponse>>(documentRequest, new ApiResponseBody<SetDocumentResponse>(HttpStatus.OK));
+
 		return null;
 	}
 
