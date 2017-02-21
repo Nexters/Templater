@@ -1,5 +1,6 @@
 package com.templater.document.model.response;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.templater.document.model.dto.DocumentDto;
@@ -9,8 +10,8 @@ public class GetDocumentResponse {
 	private long document_id;
 	private String document_type;
 	private String document_name;
-	private String created_date;
-	private String modified_date;
+	private Timestamp created_date;
+	private Timestamp modified_date;
 	private String shared;
 	private long user_id;
 	private List<GetComponentResponse> components;
@@ -31,8 +32,8 @@ public class GetDocumentResponse {
 		this.user_id = documentDto.getUser_id();
 		this.components = componentResponses;
 	}
-	public GetDocumentResponse(long document_id, String document_type, String document_name, String created_date,
-			String modified_date, String shared, long user_id, List<GetComponentResponse> components) {
+	public GetDocumentResponse(long document_id, String document_type, String document_name, Timestamp created_date,
+			Timestamp modified_date, String shared, long user_id, List<GetComponentResponse> components) {
 		super();
 		this.document_id = document_id;
 		this.document_type = document_type;
@@ -68,19 +69,19 @@ public class GetDocumentResponse {
 		this.document_name = document_name;
 	}
 
-	public String getCreated_date() {
+	public Timestamp getCreated_date() {
 		return created_date;
 	}
 
-	public void setCreated_date(String created_date) {
+	public void setCreated_date(Timestamp created_date) {
 		this.created_date = created_date;
 	}
 
-	public String getModified_date() {
+	public Timestamp getModified_date() {
 		return modified_date;
 	}
 
-	public void setModified_date(String modified_date) {
+	public void setModified_date(Timestamp modified_date) {
 		this.modified_date = modified_date;
 	}
 

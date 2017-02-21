@@ -7,7 +7,7 @@ import com.templater.document.model.dto.DocumentDto;
 public class SetDocumentRequest {
 
 	private DocumentDto document;
-	private List<SetComponentRequest> Components;
+	private List<SetComponentRequest> components;
 
 	public DocumentDto getDocument() {
 		return document;
@@ -18,16 +18,16 @@ public class SetDocumentRequest {
 	}
 
 	public List<SetComponentRequest> getComponents() {
-		return Components;
+		return components;
 	}
 
 	public void setComponents(List<SetComponentRequest> components) {
-		Components = components;
+		this.components = components;
 	}
 
 	@Override
 	public String toString() {
-		return "SetDocumentRequest [document=" + document + ", Components=" + Components + "]";
+		return "SetDocumentRequest [document=" + document + ", components=" + components + "]";
 	}
 
 }

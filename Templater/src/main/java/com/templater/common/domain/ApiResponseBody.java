@@ -17,7 +17,7 @@ public class ApiResponseBody<T> {
 	public ApiResponseBody(HttpStatus h){
 		this.data=null;
 		this.statusCode=h.value();
-		this.statusText=null;
+		this.statusText=h.getReasonPhrase();
 	}
 	
 	public ApiResponseBody(Integer statusCode, String statusText) {

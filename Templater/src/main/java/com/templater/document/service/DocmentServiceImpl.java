@@ -1,5 +1,6 @@
 package com.templater.document.service;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -157,16 +158,14 @@ public class DocmentServiceImpl implements DocumentService {
 	@Override
 	public int updateDocument(SetDocumentRequest documentRequest){
 		//1 성공, -1 에러, 0 값이404(update시 찾는조건이없을때)
-		String modified = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(new Date());
 		try{
 			DocumentDto d = documentRequest.getDocument();
-			documentRepository.updateDocument(d.getDocument_id(), d.getDocument_type(), d.getDocument_name(), modified, d.getShared());
-			
+			Timestamp time = new Timestamp(System.currentTimeMillis());
+			documentRepository.updateDocument(d.getDocument_id(), d.getDocument_type(), d.getDocument_name(),time ,d.getShared());
 			List<SetComponentRequest> components = documentRequest.getComponents();
 			for(SetComponentRequest r : components){
 				FormatDto f = r.getFormat();
 				formatRepository.updateFormat(f.getFormat_id(), f.getFormat_name(), f.getFormat_type(), f.getFormat_prop());
-				
 				TagDto t = r.getTag();
 				tagRepository.updateTag(t.getTag_id(), t.getTag_name(), t.getTag_content(), t.getParent_tag_id());
 			}
