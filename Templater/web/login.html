@@ -1,0 +1,117 @@
+<link rel="stylesheet" href="./static/css/base.min.css">
+<style>
+  .login_form {
+    width: 300px;
+    background-color: #000000;
+    color: #f8f8f8;
+  }
+
+  .login_title {
+    padding: 30px 0 10px 20px;
+    border-bottom: 1.5px solid #3d465b;
+  }
+
+  .login_content {
+    padding: 30px 0 30px 20px;
+    color: #a3a3a3;
+    border-bottom: 1.5px solid #3d465b;
+  }
+
+  .login_username_label, .login_password_label {
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .login_username_input, .login_password_input {
+    width: 240px;
+    margin-bottom: 20px;
+    background-color: #000000;
+    border: 0;
+    border-bottom: 1px solid #1f2125;
+  }
+
+  .about_login_btn .login_btn_checkbox {
+    font-size: 13px;
+    display: inline-block;
+  }
+
+  .login_btn_checkbox input[type=checkbox] {
+    display: none;
+    border: 1px solid #a3a3a3;
+    background-color: #000000;
+  }
+
+  .login_btn_checkbox input[type="checkbox"] + label span {
+    display:inline-block;
+    width:19px;
+    height:19px;
+    margin:-2px 10px 0 0;
+    vertical-align:middle;
+    background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) left top no-repeat;
+    cursor:pointer;
+  }
+  
+  .login_btn_checkbox input[type=checkbox]:checked {
+    color: #f45b92;
+  }
+
+  .about_login_btn .login_btn {
+    margin-left: 30px;
+    padding: 10px 20px;
+    border: 1px solid #a3a3a3;
+    background-color: #000000;
+    color: #ffffff;
+  }
+
+  .about_password_btn {
+    font-size: 13px;
+  }
+
+  .downside_create_account {
+    padding: 10px 0 10px 20px;
+  }
+
+  .downside_create_account label {
+    font-size: 13px;
+    color: #a3a3a3;
+  }
+
+  .forget_password_link, .create_account_link {
+    text-decoration: none;
+  }
+
+  .create_account_link {
+    display: inline:block;
+    padding-left: 30px;
+  }
+
+</style>
+<div class="login_form">
+  <div class="login_title">
+    Sign In
+  </div>
+  <div class="login_content">
+    <div class="login_username">
+      <label class="login_username_label">Username</label>
+      <input class="login_username_input" type="text">
+    </div>
+    <div class="login_password">
+      <label class="login_password_label">Password</label>
+      <input class="login_password_input" type="password">
+    </div>
+    <div class="about_login_btn">
+      <div class="login_btn_checkbox">
+        <input type="checkbox"/>
+        <label><span></span>Keep me logged in</label>
+      </div>
+      <button class="login_btn">Login</button>
+    </div>
+    <div class="about_password_btn">
+      <a href="#" class="forget_password_link">Forget Password</a>
+    </div>
+  </div>
+  <div class="downside_create_account">
+    <label>Not a member?</label>
+    <a href="#" class="create_account_link">Create Account</a>
+  </div>
+</div>
