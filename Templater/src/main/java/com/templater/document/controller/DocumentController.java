@@ -72,8 +72,10 @@ public class DocumentController {
 	@RequestMapping(value = "/document", method = RequestMethod.POST)
 	public ApiResponse<SetDocumentRequest, ApiResponseBody<SetDocumentResponse>> setDocument(
 			SetDocumentRequest documentRequest) {
-		//documentService.setDocument(documentRequest);
-		return null;
+		SetDocumentResponse documentResponse = new SetDocumentResponse();
+		documentService.setDocument(documentRequest);
+		return new ApiResponse<SetDocumentRequest, ApiResponseBody<SetDocumentResponse>>(documentRequest,
+				new ApiResponseBody<SetDocumentResponse>(documentResponse));
 	}
 
 	@RequestMapping(value = "/document", method = RequestMethod.PUT)

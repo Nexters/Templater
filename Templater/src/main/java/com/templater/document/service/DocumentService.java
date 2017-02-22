@@ -6,7 +6,6 @@ import com.templater.document.model.dto.ComponentDto;
 import com.templater.document.model.dto.DocumentDto;
 import com.templater.document.model.dto.FormatDto;
 import com.templater.document.model.dto.TagDto;
-import com.templater.document.model.request.SetComponentRequest;
 import com.templater.document.model.request.SetDocumentRequest;
 import com.templater.document.model.response.GetComponentResponse;
 

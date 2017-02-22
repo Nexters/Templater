@@ -131,24 +131,27 @@ public class DocmentServiceImpl implements DocumentService {
 					new ComponentDto(componentRequest.getComponent_id(), componentRequest.getFormat().getFormat_id(),
 							componentRequest.getTag().getTag_id(), setDocumentRequest.getDocument().getDocument_id()));
 		}
-		
 		return 0;
 	}
 
 	@Override
 	public int setComponent(ComponentDto componentDto) {
-		
-		//documentRepository.save(entity);
+		Component component = new Component(componentDto);
+		componentRepository.save(component);
 		return 0;
 	}
 
 	@Override
 	public int setFormat(FormatDto formatDto) {
+		Format format = new Format(formatDto);
+		formatRepository.save(format);
 		return 0;
 	}
 
 	@Override
 	public int setTag(TagDto tagDto) {
+		Tag tag = new Tag(tagDto);
+		tagRepository.save(tag);
 		return 0;
 	}
 
