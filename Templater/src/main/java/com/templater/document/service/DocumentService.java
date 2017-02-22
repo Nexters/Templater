@@ -29,4 +29,6 @@ public interface DocumentService {
 	public int setFormat(FormatDto formatDto);
 
 	public int setTag(TagDto tagDto);
+	
+	public int updateDocument(SetDocumentRequest documentRequest);
 }

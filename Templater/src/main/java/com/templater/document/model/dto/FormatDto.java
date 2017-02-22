@@ -17,20 +17,12 @@ public class FormatDto {
 	}
 
 	public FormatDto(Format fmt) {
-		super();
 		this.format_id = fmt.getFormat_id();
 		this.format_name = fmt.getFormat_name();
 		this.format_type = fmt.getFormat_type();
 		this.format_prop = fmt.getFormat_prop();
 	}
 
-	public FormatDto(long format_id, String format_name, String format_type, String format_prop) {
-		super();
-		this.format_id = format_id;
-		this.format_name = format_name;
-		this.format_type = format_type;
-		this.format_prop = format_prop;
-	}
 
 	public long getFormat_id() {
 		return format_id;

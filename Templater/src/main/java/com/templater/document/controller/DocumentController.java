@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -79,9 +80,13 @@ public class DocumentController {
 	}
 
 	@RequestMapping(value = "/document", method = RequestMethod.PUT)
-	public ApiResponse<GetDocumentRequest, ApiResponseBody<GetDocumentResponse>> updateDocument(
-			GetDocumentRequest documentRequest) {
-		return null;
+	public ApiResponseBody<SetDocumentResponse> updateDocument(@RequestBody SetDocumentRequest documentRequest) {
+		System.out.println(documentRequest);
+		int result = documentService.updateDocument(documentRequest);
+		if(result == -1){
+			return new ApiResponseBody<SetDocumentResponse>(HttpStatus.BAD_REQUEST);
+		}
+		return new ApiResponseBody<SetDocumentResponse>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/document", method = RequestMethod.DELETE)

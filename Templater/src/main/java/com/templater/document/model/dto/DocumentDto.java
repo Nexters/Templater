@@ -1,5 +1,7 @@
 package com.templater.document.model.dto;
 
+import java.sql.Timestamp;
+
 public class DocumentDto {
 	private long document_id;
 
@@ -7,9 +9,9 @@ public class DocumentDto {
 
 	private String document_name;
 
-	private String created_date;
+	private Timestamp created_date;
 
-	private String modified_date;
+	private Timestamp modified_date;
 
 	private String shared;
 
@@ -29,9 +31,8 @@ public class DocumentDto {
 		this.user_id = doc.getUser_id();
 	}
 
-	public DocumentDto(long document_id, String document_type, String document_name, String created_date,
-			String modified_date, String shared, long user_id) {
-		super();
+	public DocumentDto(long document_id, String document_type, String document_name, Timestamp created_date,
+			Timestamp modified_date, String shared, long user_id) {
 		this.document_id = document_id;
 		this.document_type = document_type;
 		this.document_name = document_name;
@@ -65,19 +66,19 @@ public class DocumentDto {
 		this.document_name = document_name;
 	}
 
-	public String getCreated_date() {
+	public Timestamp getCreated_date() {
 		return created_date;
 	}
 
-	public void setCreated_date(String created_date) {
+	public void setCreated_date(Timestamp created_date) {
 		this.created_date = created_date;
 	}
 
-	public String getModified_date() {
+	public Timestamp getModified_date() {
 		return modified_date;
 	}
 
-	public void setModified_date(String modified_date) {
+	public void setModified_date(Timestamp modified_date) {
 		this.modified_date = modified_date;
 	}
 

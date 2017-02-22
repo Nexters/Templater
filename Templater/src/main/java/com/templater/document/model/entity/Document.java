@@ -1,5 +1,6 @@
 package com.templater.document.model.entity;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -24,11 +25,11 @@ public class Document {
 	@Column(name = "document_name")
 	private String document_name;
 
-	@Column(name = "created_date")
-	private String created_date;
+	@Column(name = "created_date",columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	private Timestamp created_date;
 
-	@Column(name = "modified_date")
-	private String modified_date;
+	@Column(name = "modified_date",columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	private Timestamp modified_date;
 
 	@Column(name = "shared")
 	private String shared;
@@ -78,19 +79,19 @@ public class Document {
 		this.document_name = document_name;
 	}
 
-	public String getCreated_date() {
+	public Timestamp getCreated_date() {
 		return created_date;
 	}
 
-	public void setCreated_date(String created_date) {
+	public void setCreated_date(Timestamp created_date) {
 		this.created_date = created_date;
 	}
 
-	public String getModified_date() {
+	public Timestamp getModified_date() {
 		return modified_date;
 	}
 
-	public void setModified_date(String modified_date) {
+	public void setModified_date(Timestamp modified_date) {
 		this.modified_date = modified_date;
 	}
 
