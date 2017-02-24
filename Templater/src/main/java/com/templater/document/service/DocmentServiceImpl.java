@@ -1,9 +1,7 @@
 package com.templater.document.service;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,52 +122,110 @@ public class DocmentServiceImpl implements DocumentService {
 
 	@Override
 	public int setDocument(SetDocumentRequest setDocumentRequest) {
-		Document document = new Document(setDocumentRequest.getDocument());
-		documentRepository.save(document);
+		try {
+			Document document = new Document(setDocumentRequest.getDocument());
+			documentRepository.save(document);
 
-		for (SetComponentRequest componentRequest : setDocumentRequest.getComponents()) {
-			setFormat(componentRequest.getFormat());
-			setTag(componentRequest.getTag());
-			setComponent(
-					new ComponentDto(componentRequest.getComponent_id(), componentRequest.getFormat().getFormat_id(),
-							componentRequest.getTag().getTag_id(), setDocumentRequest.getDocument().getDocument_id()));
+			for (SetComponentRequest componentRequest : setDocumentRequest.getComponents()) {
+				setFormat(componentRequest.getFormat());
+				setTag(componentRequest.getTag());
+				setComponent(new ComponentDto(componentRequest.getComponent_id(),
+						componentRequest.getFormat().getFormat_id(), componentRequest.getTag().getTag_id(),
+						setDocumentRequest.getDocument().getDocument_id()));
+			}
+		} catch (Exception e) {
+			e.getStackTrace();
+			return -1;
 		}
-		
-		return 0;
+		return 1;
 	}
 
 	@Override
 	public int setComponent(ComponentDto componentDto) {
-		
-		//documentRepository.save(entity);
-		return 0;
+		try {
+			Component component = new Component(componentDto);
+			componentRepository.save(component);
+		} catch (Exception e) {
+			e.getStackTrace();
+			return -1;
+		}
+		return 1;
 	}
 
 	@Override
 	public int setFormat(FormatDto formatDto) {
-		return 0;
+		try {
+			Format format = new Format(formatDto);
+			formatRepository.save(format);
+		} catch (Exception e) {
+			e.getStackTrace();
+			return -1;
+		}
+		return 1;
 	}
 
 	@Override
 	public int setTag(TagDto tagDto) {
-		return 0;
+		try {
+			Tag tag = new Tag(tagDto);
+			tagRepository.save(tag);
+		} catch (Exception e) {
+			e.getStackTrace();
+			return -1;
+		}
+		return 1;
 	}
 
 	@Override
-	public int updateDocument(SetDocumentRequest documentRequest){
-		//1 성공, -1 에러, 0 값이404(update시 찾는조건이없을때)
-		try{
+	public int updateDocument(SetDocumentRequest documentRequest) {
+		// 1 성공, -1 에러, 0 값이404(update시 찾는조건이없을때)
+		try {
 			DocumentDto d = documentRequest.getDocument();
 			Timestamp time = new Timestamp(System.currentTimeMillis());
-			documentRepository.updateDocument(d.getDocument_id(), d.getDocument_type(), d.getDocument_name(),time ,d.getShared());
+			documentRepository.updateDocument(d.getDocument_id(), d.getDocument_type(), d.getDocument_name(), time,
+					d.getShared());
 			List<SetComponentRequest> components = documentRequest.getComponents();
-			for(SetComponentRequest r : components){
+			for (SetComponentRequest r : components) {
 				FormatDto f = r.getFormat();
-				formatRepository.updateFormat(f.getFormat_id(), f.getFormat_name(), f.getFormat_type(), f.getFormat_prop());
+				formatRepository.updateFormat(f.getFormat_id(), f.getFormat_name(), f.getFormat_type(),
+						f.getFormat_prop());
 				TagDto t = r.getTag();
 				tagRepository.updateTag(t.getTag_id(), t.getTag_name(), t.getTag_content(), t.getParent_tag_id());
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+		return 1;
+	}
+
+	@Override
+	public int deleteDocument(long document_id) {
+		try {
+			Document document = documentRepository.getDocumentByDid(document_id);
+			if (document == null) {
+				return 0;
+			}
+			documentRepository.deleteDocument(document_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+		return 1;
+	}
+
+	@Override
+	public int deleteComponent(long component_id) {
+		try {
+			Component component = componentRepository.getComponent(component_id);
+			if (component == null) {
+				return 0;
+			}
+			componentRepository.deleteComponent(component_id);
+			if (component.getFormat_id() != null) {
+				formatRepository.deleteFormat(component.getFormat_id().getFormat_id());
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 			return -1;
 		}

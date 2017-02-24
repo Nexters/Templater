@@ -1,0 +1,164 @@
+// out: base.min.css, sourcemap: false, compress: true
+@import-once "../bower_components/normalize-css/normalize.css";
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans|Roboto');
+
+@frame: 1080px;
+@color-black: #000;
+@color-white: #fff;
+@color-gray: #2f2f2f;
+@color-icecream: #f2f5fe;
+@size-h-header-in: 2.3em;
+
+*,
+:after,
+:before,
+:hover {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: inherit;
+  outline: none;
+  font-family: 'Roboto', 'Noto Sans', sans-serif;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: @color-icecream;
+}
+
+*.frame {
+  width: 100%;
+  min-width: @frame;
+  max-width: @frame;
+  margin: 0 auto;
+}
+
+.module {
+  position: relative;
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  display: block;
+  &.fixed {
+    position: fixed;
+  }
+  &.pinned {
+    position: absolute;
+  }
+}
+
+.mustache {
+  display:none;
+}
+
+header#header {
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  &.no-search {
+    .search-box {
+      display:none;
+    }
+  }
+
+  background-color: @color-black;
+  color: @color-white;
+
+  .frame {
+    height: 100%;
+    padding: 0 0.5em;
+
+    & > * > * {
+      display: inline-block;
+    }
+
+    & > .left, & > .right {
+      margin: 1em 0;
+    }
+    & > .left {
+      float: left;
+      width: 50%;
+
+      .logo {
+        vertical-align: middle;
+        height: @size-h-header-in - 0.4em;
+        margin-right: 1em;
+        img {
+          height: 100%;
+        }
+      }
+
+      .search-box {
+        cursor: text;
+        height: @size-h-header-in - 0.3em;
+        padding: 0.3em 0.5em;
+        border-radius: 5px;
+        background-color: @color-gray;
+        vertical-align: middle;
+
+        img {
+          height: 100%;
+          vertical-align: top;
+        }
+
+        .search-contents {
+          height: 100%;
+          color: inherit;
+          padding: 0;
+          border: 0;
+          background-color: transparent;
+          vertical-align: middle;
+        }
+      }
+    }
+
+    & > .right {
+      float: right;
+      width: 50%;
+      height: 100%;
+      text-align: right;
+
+      .btn-group {
+        button {
+          margin: 0 1em;
+          background-color: transparent;
+          border: 0;
+          cursor: pointer;
+
+          & > * {
+            display: inline-block;
+          }
+
+          .icon {
+            width: @size-h-header-in;
+            height: @size-h-header-in;
+            line-height: @size-h-header-in;
+
+            border-radius: 100%;
+            background-color: @color-gray;
+            margin-right: 0.3em;
+          }
+          .name {
+            font-size:1.1em;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+}
+
