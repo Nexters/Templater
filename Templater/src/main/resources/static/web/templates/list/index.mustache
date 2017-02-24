@@ -1,0 +1,252 @@
+<style>
+    .list-body {
+        width: 100%;
+    }
+
+    .list-body .frame {
+        font-size: 0;
+    }
+
+    .list-body .layout {
+        display: inline-block;
+    }
+
+    .list-body .layout {
+        vertical-align: middle;
+        font-size: 1rem;
+        width: 100px;
+        height: 100%;
+    }
+
+    .list-body .layout-article {
+        vertical-align: middle;
+        font-size: 1rem;
+        display: inline-block;
+        width: calc(100% - 200px);
+    }
+
+    .list-body .layout-article .cards {
+        width: 100%;
+        height: 660px;
+        margin: 0;
+        list-style: none;
+        font-size: 0;
+        padding: 15px 10px;
+    }
+
+    .list-body .layout-article .cards .card {
+        display: inline-block;
+        font-size: 1rem;
+        width: calc((100% - 100px) / 4);
+        height: calc((100% - 80px) / 2);
+        margin: 20px 10px;
+        background-color: white;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        position: relative;
+    }
+    .list-body .layout-article .cards .card.empty {
+        opacity:0.5;
+    }
+
+    .list-body .layout-article .cards .card .overlay {
+        display: flex;
+        height: calc(100% - 80px);
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+    }
+
+    .list-body .layout-article .cards .card:hover {
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .list-body .layout-article .cards .card:hover .overlay {
+        background-color: rgba(0, 0, 0, 0.3);
+        transition-duration: 0.3s;
+    }
+
+    .list-body .layout-article .cards .card .overlay button.view {
+        cursor: pointer;
+        background-color: rgba(87, 97, 125, 0.4);
+        border: 0;
+        padding: 8px 30px;
+        color: #FFFFFF;
+        font-weight: bold;
+        font-size: 1em;
+        border-radius: 100px;
+    }
+
+    .list-body .layout-article .cards .card .overlay button.view:hover {
+        background-color: rgba(87, 97, 125, 1);
+    }
+
+    .list-body .layout-article .cards .card .label {
+        width: 100%;
+        height: 80px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        font-size: 0;
+        border-top: 2px solid #f0f0f0;
+    }
+
+    .list-body .layout-article .cards .card .name-tag {
+        width: 100%;
+        height: 48px;
+        font-size: 0;
+        display: table;
+    }
+
+    .list-body .layout-article .cards .card .date {
+        font-size: 0.8rem;
+        height: 30px;
+        color: #d0d5e2;
+        padding: 0 8px;
+        display: table;
+    }
+
+    .list-body .layout-article .cards .card .date > * {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .list-body .layout-article .cards .card .name-tag .name {
+        font-size: 0.9rem;
+        display: table-cell;
+        width: calc(100% - 35px);
+        height: 100%;
+        vertical-align: top;
+        padding: 10px 10px 0 10px;
+        color: #a4a8b1;
+        font-weight: bold;
+    }
+
+    .list-body .layout-article .cards .card .name-tag .more {
+        font-size: 1rem;
+        display: table-cell;
+        width: 35px;
+        height: 100%;
+        vertical-align: middle;
+        background: none;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+    }
+
+    .list-body .layout-article .cards .card .name-tag .more img {
+        width: 50%;
+    }
+
+    .list-body .layout-article .cards .card .name-tag .more:hover img {
+        width: 52%;
+    }
+
+    .list-body .layout-article .cards .card .name-tag .more:active img {
+        width: 48%;
+    }
+
+    .list-body .navigation.prev,
+    .list-body .navigation.next {
+        background: none;
+        border: 0;
+    }
+
+    .list-body .navigation > img {
+        filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.2));
+    }
+
+    .list-body .navigation:hover > img, .list-body .navigation:active > img {
+        filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.1));
+        cursor: pointer;
+    }
+
+    .list-body .navigation.next {
+        -ms-transform: rotate(180deg); /* IE 9 */
+        -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+        transform: rotate(180deg);
+    }
+    .list-body .pagination {
+        width:100%;
+        text-align:center;
+    }
+    .list-body .pagination li {
+        vertical-align:middle;
+        display:inline-block;
+        padding:3px;
+        color:#c8c8c8;
+    }
+    .list-body .pagination li.current {
+        text-decoration:underline;
+        color:#000000;
+    }
+</style>
+<div class="list-body">
+    <div class="frame">
+        <div class="layout">
+            <button class="navigation prev">
+                <img src="./static/images/arrow.svg">
+            </button>
+        </div>
+        <div class="layout-article">
+            <ul class="cards document" style="{{tab_document}}">
+                {{#documents}}
+                    <li class="card">
+                        <div class="overlay">
+                            <button class="view">View</button>
+                        </div>
+                        <div class="label">
+                            <div class="name-tag">
+                                <div class="name">{{title}}</div>
+                                <button class="more"><img src="./static/images/more.png"></button>
+                            </div>
+                            <div class="date">
+                                <img>
+                                <span>{{date}}</span>
+                            </div>
+                        </div>
+                    </li>
+                {{/documents}}
+                {{#empty_document}}
+                    <div class="card empty"></div>
+                {{/empty_document}}
+            </ul>
+            <ul class="cards form" style="{{tab_form}}">
+                {{#forms}}
+                    <li class="card">
+                        <div class="overlay">
+                            <button class="view">View</button>
+                        </div>
+                        <div class="label">
+                            <div class="name-tag">
+                                <div class="name">{{title}}</div>
+                                <button class="more"><img src="./static/images/more.png"></button>
+                            </div>
+                            <div class="date">
+                                <img>
+                                <span>{{date}}</span>
+                            </div>
+                        </div>
+                    </li>
+                {{/forms}}
+                {{#empty_form}}
+                    <div class="card empty"></div>
+                {{/empty_form}}
+            </ul>
+        </div>
+        <div class="layout">
+            <button class="navigation next">
+                <img src="./static/images/arrow.svg">
+            </button>
+        </div>
+    </div>
+    <ul class="pagination">
+        <li>1</li>
+        <li class="current">2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+</div>
