@@ -6,7 +6,6 @@ import com.templater.document.model.dto.ComponentDto;
 import com.templater.document.model.dto.DocumentDto;
 import com.templater.document.model.dto.FormatDto;
 import com.templater.document.model.dto.TagDto;
-import com.templater.document.model.request.SetComponentRequest;
 import com.templater.document.model.request.SetDocumentRequest;
 import com.templater.document.model.response.GetComponentResponse;
 
@@ -32,4 +31,8 @@ public interface DocumentService {
 	public int setTag(TagDto tagDto);
 	
 	public int updateDocument(SetDocumentRequest documentRequest);
+	
+	public int deleteDocument(long document_id);
+	
+	public int deleteComponent(long component_id);
 }

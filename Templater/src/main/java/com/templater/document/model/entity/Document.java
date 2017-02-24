@@ -25,10 +25,10 @@ public class Document {
 	@Column(name = "document_name")
 	private String document_name;
 
-	@Column(name = "created_date",columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	@Column(name = "created_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp created_date;
 
-	@Column(name = "modified_date",columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	@Column(name = "modified_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp modified_date;
 
 	@Column(name = "shared")
@@ -36,6 +36,9 @@ public class Document {
 
 	@Column(name = "user_id")
 	private long user_id;
+
+	@Column(name = "is_deleted")
+	private int is_deleted;
 
 	@OneToMany(mappedBy = "document_id", cascade = CascadeType.ALL)
 	private List<Component> component;
@@ -119,11 +122,19 @@ public class Document {
 		this.component = component;
 	}
 
+	public int getIs_deleted() {
+		return is_deleted;
+	}
+
+	public void setIs_deleted(int is_deleted) {
+		this.is_deleted = is_deleted;
+	}
+
 	@Override
 	public String toString() {
 		return "Document [document_id=" + document_id + ", document_type=" + document_type + ", document_name="
 				+ document_name + ", created_date=" + created_date + ", modified_date=" + modified_date + ", shared="
-				+ shared + ", user_id=" + user_id + ", component=" + component + "]";
+				+ shared + ", user_id=" + user_id + ", is_deleted=" + is_deleted + ", component=" + component + "]";
 	}
 
 }

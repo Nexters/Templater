@@ -19,4 +19,7 @@ public interface FormatRepository extends JpaRepository<Format, Long> {
 	@Query("update Format f set f.format_name=?2, f.format_type=?3, f.format_prop=?4 where f.format_id=?1")
 	public int updateFormat(long format_id, String format_name, String format_type, String format_prop);
 
+	
+	@Query("delete from Format f where f.format_id=?1")
+	public void deleteFormat(long format_id);
 }

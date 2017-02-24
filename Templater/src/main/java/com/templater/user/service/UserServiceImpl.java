@@ -95,6 +95,15 @@ public class UserServiceImpl implements UserService{
 		return true;
 	}
 
+	@Override
+	public long getUserIdByLoginId(String loginId) {
+		UserEntity userEntity = userRepository.findByLoginId(loginId);
+		if(userEntity==null){
+			return 0;
+		}
+		return userEntity.getUserId();
+	}
+
 //	@Override
 //	public UserDto readUser(String loginId){
 //		UserEntity userEntity = userRepository.findByLoginId(loginId);

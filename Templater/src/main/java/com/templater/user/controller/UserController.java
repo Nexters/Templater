@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.templater.common.domain.ApiResponseBody;
+import com.templater.common.domain.ApiResponse;
 import com.templater.user.model.entity.UserDto;
 import com.templater.user.model.request.UserCreateRequest;
 import com.templater.user.model.response.UserGetAllResponse;
@@ -46,47 +46,47 @@ public class UserController{
 
 	// test api
 	@RequestMapping(value = "/getAll")
-	public ApiResponseBody<List<UserGetAllResponse>> userSelect() {
+	public ApiResponse<List<UserGetAllResponse>> userSelect() {
 		List<UserGetAllResponse> userGetAllResponseList = userServiceImpl.userSelectAll();
-		return new ApiResponseBody(userGetAllResponseList);
+		return new ApiResponse(userGetAllResponseList);
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public ApiResponseBody createUser(@RequestBody UserCreateRequest userCreateRequest, BindingResult bindingResult) {
+	public ApiResponse createUser(@RequestBody UserCreateRequest userCreateRequest, BindingResult bindingResult) {
 		
 		System.out.println(userCreateRequest);
 		int resultCode = userServiceImpl.createUser(userCreateRequest);
 		if (resultCode == -1) {
-			return new ApiResponseBody(HttpStatus.UNAUTHORIZED.value(), "회원가입 실패");
+			return new ApiResponse(HttpStatus.UNAUTHORIZED.value(), "회원가입 실패");
 		}
-		return new ApiResponseBody(HttpStatus.OK.value(),HttpStatus.OK.getReasonPhrase());
+		return new ApiResponse(HttpStatus.OK.value(),HttpStatus.OK.getReasonPhrase());
 	}
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
-	public ApiResponseBody getUser(){
+	public ApiResponse getUser(){
 		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
 		String loginId = auth.getName();
 		try{
 			UserGetResponse userResponse = userServiceImpl.getUserByLoginId(loginId);
-			return new ApiResponseBody(userResponse);
+			return new ApiResponse(userResponse);
 		}catch(Exception e){
 			e.printStackTrace();
-			return new ApiResponseBody(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+			return new ApiResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage());
 		}
 	}
 	
 	@RequestMapping(value="/{loginIdParam}", method=RequestMethod.GET)
-	public ApiResponseBody getUser(@PathVariable String loginIdParam){
+	public ApiResponse getUser(@PathVariable String loginIdParam){
 		
 		String loginId = loginIdParam; 
 		System.out.println(loginId);
 		
 		try{
 			UserGetResponse userResponse = userServiceImpl.getUserByLoginId(loginId);
-			return new ApiResponseBody(userResponse);
+			return new ApiResponse(userResponse);
 		}catch(Exception e){
 			e.printStackTrace();
-			return new ApiResponseBody(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+			return new ApiResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage());
 		}
 	}
 
@@ -114,14 +114,14 @@ public class UserController{
 	}
 	
 	@RequestMapping(value="/auth")
-	public ApiResponseBody isAuthentication(){
+	public ApiResponse isAuthentication(){
 		Map<String,Object> map = new HashMap<String,Object>();
 		if(userServiceImpl.isAuthenticated()){
 			map.put("isAuthenticated", true);
-			return new ApiResponseBody<Map<String,Object>>(map);
+			return new ApiResponse<Map<String,Object>>(map);
 		}else{
 			map.put("isAuthenticated", false);
-			return new ApiResponseBody<Map<String,Object>>(map);
+			return new ApiResponse<Map<String,Object>>(map);
 		}
 	}
 
