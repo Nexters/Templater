@@ -17,6 +17,8 @@ public class DocumentDto {
 
 	private long user_id;
 
+	private int is_deleted;
+
 	public DocumentDto() {
 
 	}
@@ -29,10 +31,11 @@ public class DocumentDto {
 		this.modified_date = doc.getModified_date();
 		this.shared = doc.getShared();
 		this.user_id = doc.getUser_id();
+		this.is_deleted = doc.getIs_deleted();
 	}
 
 	public DocumentDto(long document_id, String document_type, String document_name, Timestamp created_date,
-			Timestamp modified_date, String shared, long user_id) {
+			Timestamp modified_date, String shared, long user_id, int is_deleted) {
 		this.document_id = document_id;
 		this.document_type = document_type;
 		this.document_name = document_name;
@@ -40,6 +43,7 @@ public class DocumentDto {
 		this.modified_date = modified_date;
 		this.shared = shared;
 		this.user_id = user_id;
+		this.is_deleted = is_deleted;
 	}
 
 	public long getDocument_id() {
@@ -98,11 +102,19 @@ public class DocumentDto {
 		this.user_id = user_id;
 	}
 
+	public int getIs_deleted() {
+		return is_deleted;
+	}
+
+	public void setIs_deleted(int is_deleted) {
+		this.is_deleted = is_deleted;
+	}
+
 	@Override
 	public String toString() {
-		return "Document [document_id=" + document_id + ", document_type=" + document_type + ", document_name="
+		return "DocumentDto [document_id=" + document_id + ", document_type=" + document_type + ", document_name="
 				+ document_name + ", created_date=" + created_date + ", modified_date=" + modified_date + ", shared="
-				+ shared + ", user_id=" + user_id + "]";
+				+ shared + ", user_id=" + user_id + ", is_deleted=" + is_deleted + "]";
 	}
 
 }

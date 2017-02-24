@@ -31,4 +31,8 @@ public interface DocumentService {
 	public int setTag(TagDto tagDto);
 	
 	public int updateDocument(SetDocumentRequest documentRequest);
+	
+	public int deleteDocument(long document_id);
+	
+	public int deleteComponent(long component_id);
 }
