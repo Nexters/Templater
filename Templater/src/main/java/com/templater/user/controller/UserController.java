@@ -1,6 +1,8 @@
 package com.templater.user.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -109,6 +111,18 @@ public class UserController{
 		UserDetailsCustom userDetails = new UserDetailsCustom(userDto,0);
 		
 		return new AuthenticationToken(userDetails.getUsername(), userDetails.getAuthorities(), session.getId());
+	}
+	
+	@RequestMapping(value="/auth")
+	public ApiResponseBody isAuthentication(){
+		Map<String,Object> map = new HashMap<String,Object>();
+		if(userServiceImpl.isAuthenticated()){
+			map.put("isAuthenticated", true);
+			return new ApiResponseBody<Map<String,Object>>(map);
+		}else{
+			map.put("isAuthenticated", false);
+			return new ApiResponseBody<Map<String,Object>>(map);
+		}
 	}
 
 }

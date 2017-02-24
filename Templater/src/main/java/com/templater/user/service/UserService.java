@@ -13,5 +13,5 @@ public interface UserService {
 	public int createUser(UserCreateRequest userCreateRequest);
 	public UserGetResponse getUserByLoginId(String loginId);
 	UserDto getUserDetailByLoginId(String loginId);
-	
+	public boolean isAuthenticated();
 }

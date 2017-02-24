@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -77,6 +79,20 @@ public class UserServiceImpl implements UserService{
 			return -1;
 		}
 		return HttpStatus.OK.value();
+	}
+	
+	@Override
+	public boolean isAuthenticated(){
+		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+		String loginName = auth.getName();
+		System.out.println("user info: "+loginName);
+		if(loginName.equals("anonymousUser")){
+			System.out.println("is authenticated false");
+			
+			return false;
+		}
+		System.out.println("is authenticated true");
+		return true;
 	}
 
 //	@Override
