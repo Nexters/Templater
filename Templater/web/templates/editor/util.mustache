@@ -1,0 +1,84 @@
+<style>
+    .component.ui-resizable:hover:after {
+        display: block;
+    }
+
+    .component.ui-resizable:after {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        content: ' ';
+        border: 1px dashed #0b58a2;
+    }
+
+    .ui-icon-gripsmall-diagonal-se {
+        background: none;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        var $editorBody = $(".editor-body");
+        var $canvas = $(".editor-body .canvas");
+        var $helpers = $("[data-tool]");
+
+        $canvas.droppable({
+            drop: function (event, ui) {
+                var $handler = $(ui.draggable[0]);
+                if ($handler.hasClass("svg-container")) {
+                    var addEvent = new _.Event(_.CONST.EVENT.ADD, function(){
+                        return addTool(event, $handler);
+                    });
+                    _.events.push(addEvent);
+                    _.excute();
+                }
+            }
+        });
+        $helpers.draggable({
+            cursor: "move",
+            helper: "clone",
+            start: function () {
+                $editorBody.addClass("dragging");
+            },
+            stop: function () {
+                $editorBody.removeClass("dragging");
+            }
+        });
+
+        function addTool(event, $handler) {
+            var type = $handler.data("tool");
+            var $containers = $(".js_draggable_snap");
+            var $newContainer = $("<div>", {
+                        "class": "component js_draggable_snap",
+                        "data-type": type,
+                        "data-id": type + $containers.length,
+                        "html": type
+                    }
+            )
+                    .css("display", "inline-block")
+                    .css("width", "100px")
+                    .css("height", "80px")
+                    .css("top", event.pageY - $canvas.offset().top)
+                    .css("left", event.pageX - $canvas.offset().left)
+                    .css("position", "absolute")
+                    .draggable({
+                        cursor: "move",
+                        snap: ".editor-body .canvas, .js_draggable_snap",
+                        stop: function(){
+                            $(".editor-body .canvas .component.selected").removeClass("selected");
+                            $(this).addClass("selected");
+                        }
+                    })
+                    .resizable({
+                        containment: $canvas
+                    })
+                    .appendTo($canvas);
+
+            return function () {
+                $newContainer.remove();
+            }
+        }
+    });
+</script>
