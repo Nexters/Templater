@@ -1,6 +1,5 @@
 package com.templater.document.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,7 @@ import com.templater.document.model.response.GetComponentResponse;
 import com.templater.document.model.response.GetDocumentResponse;
 import com.templater.document.model.response.SetDocumentResponse;
 import com.templater.document.service.DocumentService;
+import com.templater.user.service.UserService;
 
 @RestController
 @RequestMapping(value = "/doc")
@@ -27,20 +27,29 @@ public class DocumentController {
 	@Autowired
 	private DocumentService documentService;
 
-	@RequestMapping(value = "/doclist")
-	public ApiResponse<List<DocumentDto>> getDocumentsList() {
-		List<DocumentDto> docList = new ArrayList<>();
-		long user_id = 3;
-		docList = documentService.getDocuments(user_id);
+	@Autowired
+	private UserService userService;
 
+	@RequestMapping(value = "/doclist")
+	public ApiResponse<List<DocumentDto>> getDocumentsList(String loginId) {
+
+		long user_id = userService.getUserIdByLoginId(loginId);
+		if (user_id == 0) {
+			return new ApiResponse<List<DocumentDto>>(HttpStatus.BAD_REQUEST.value(), "Not Found User");
+		}
+		List<DocumentDto> docList = documentService.getDocuments(user_id);
+		if (docList == null) {
+			return new ApiResponse<List<DocumentDto>>(HttpStatus.OK.value(), "Not Found Document");
+		}
 		return new ApiResponse<List<DocumentDto>>(docList);
 	}
 
 	@RequestMapping(value = "/comlist")
-	public ApiResponse<List<ComponentDto>> getComponents() {
-		List<ComponentDto> comList = new ArrayList<>();
-		long document_id = 4;
-		comList = documentService.getComponents(document_id);
+	public ApiResponse<List<ComponentDto>> getComponents(long document_id) {
+		List<ComponentDto> comList = documentService.getComponents(document_id);
+		if(comList ==null){
+			return new ApiResponse<List<ComponentDto>>(HttpStatus.OK.value(), "Not Found Component");
+		}
 		return new ApiResponse<List<ComponentDto>>(comList);
 	}
 

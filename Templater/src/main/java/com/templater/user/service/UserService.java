@@ -10,8 +10,12 @@ import com.templater.user.model.response.UserGetResponse;
 public interface UserService {
 
 	public List<UserGetAllResponse> userSelectAll();
+
 	public int createUser(UserCreateRequest userCreateRequest);
+
 	public UserGetResponse getUserByLoginId(String loginId);
+
 	UserDto getUserDetailByLoginId(String loginId);
-	
+
+	public long getUserIdByLoginId(String loginId);
 }
