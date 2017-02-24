@@ -30,7 +30,7 @@ public class DocumentController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "/doclist")
+	@RequestMapping(value = "/doclist", method = RequestMethod.GET)
 	public ApiResponse<List<DocumentDto>> getDocumentsList(String loginId) {
 
 		long user_id = userService.getUserIdByLoginId(loginId);
@@ -44,10 +44,10 @@ public class DocumentController {
 		return new ApiResponse<List<DocumentDto>>(docList);
 	}
 
-	@RequestMapping(value = "/comlist")
+	@RequestMapping(value = "/comlist", method = RequestMethod.GET)
 	public ApiResponse<List<ComponentDto>> getComponents(long document_id) {
 		List<ComponentDto> comList = documentService.getComponents(document_id);
-		if(comList ==null){
+		if (comList == null) {
 			return new ApiResponse<List<ComponentDto>>(HttpStatus.OK.value(), "Not Found Component");
 		}
 		return new ApiResponse<List<ComponentDto>>(comList);
@@ -94,7 +94,7 @@ public class DocumentController {
 		return new ApiResponse<SetDocumentResponse>(HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/document/doc", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/document/deldoc", method = RequestMethod.DELETE)
 	public ApiResponse<SetDocumentResponse> deleteDocument(long document_id) {
 		int result = documentService.deleteDocument(document_id);
 		if (result == 0) {
@@ -106,7 +106,7 @@ public class DocumentController {
 		return new ApiResponse<SetDocumentResponse>(HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/document/comp", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/document/delcomp", method = RequestMethod.DELETE)
 	public ApiResponse<SetDocumentResponse> deleteComponent(long component_id) {
 		int result = documentService.deleteComponent(component_id);
 		if (result == 0) {
