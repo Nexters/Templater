@@ -109,6 +109,10 @@ window.Router = function (_, init) {
           )(90, 180, 2).addClass("pinned");
         }
       });
+
+      _.load.module('editor-util', "./templates/editor/util.mustache", function () {
+        _.print.module_only('editor-util');
+      });
     }
   };
 };

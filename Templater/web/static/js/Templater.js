@@ -3,10 +3,66 @@
  */
 window.Templater = function () {
     return {
-        _modules: {},
-        get modules() {
-            return this._modules;
+        version: 0.01,
+        CONST: {
+            EVENT: {
+                ADD: 'addEvent',
+                SET: 'setEvent',
+                REMOVE: 'removeEvent'
+            }
         },
+        Event: function (type, content) {
+            if (!type)
+                throw new Error("Event has no type.");
+
+            return {
+                type: type,
+                version: this.version,
+                time: (new Date()).getTime(),
+                content: content || function () {
+                },
+                rollback: function () {
+                },
+                excute: function () {
+                    this.rollback = this.content();
+                    console.log(this.rollback);
+                }
+            }
+        },
+        undoCount: 0,
+        cursor: 0,
+        undo: function () {
+            var event = this.events[this.cursor - 1];
+            if (!event) {
+                console.log("no undo");
+                return;
+            }
+            this.cursor--;
+            this.undoCount++;
+            return event.rollback();
+        },
+        redo: function () {
+            var event = this.events[this.cursor];
+            if (!event) {
+                console.log("no redo");
+                return;
+            }
+            this.cursor++;
+            this.undoCount--;
+            return event.excute();
+        },
+        excute: function () {
+            for (this.undoCount; this.undoCount > 0; this.undoCount--) {
+                this.events.pop();
+            }
+
+            for (this.cursor; this.cursor < this.events.length; this.cursor++) {
+                this.events[this.cursor].excute();
+            }
+        },
+        events: [],
+        canvas: {},
+        modules: {},
         get: {
             template: function (key) {
                 var $head = $("head");
@@ -43,14 +99,12 @@ window.Templater = function () {
                 if (!option.url) {
                     throw "해당하는 템플릿이 없습니다.";
                 }
-
                 $.get(option.url)
                     .done(function (result) {
                         if (result) {
                             var $tpl = $("<div></div>");
                             $tpl.html(result);
                             modules[option.key] = {};
-
                             if ($tpl.find("script").length > 0) {
                                 modules[option.key].script = $tpl.find("script").html();
                                 $tpl.find("script").remove();

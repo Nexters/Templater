@@ -1,300 +1,263 @@
 <script src="../../static/bower_components/jquery/dist/jquery.min.js"></script>
 <style>
-  .upper-editor {
-    font-size: 0;
-    height: 50px;
-    width: 100%;
-    border-bottom: 1px solid #eceff4;
-    background-color: #f2f5fe;
-    position: relative;
-  }
+    .upper-editor {
+        font-size: 0;
+        height: 50px;
+        width: 100%;
+        border-bottom: 1px solid #eceff4;
+        background-color: #f2f5fe;
+        position: relative;
+    }
 
-  .upper-editor .upper-editor-left {
-    width: 50%;
-    margin: 16px 0;
-    display: inline-block;
-    border-right: 1px solid #cad0dd;
-    text-align: right;
-    vertical-align: top;
-  }
+    .upper-editor .upper-editor-left {
+        width: 60%;
+        margin: 16px 0;
+        display: inline-block;
+        border-right: 1px solid #cad0dd;
+        text-align: right;
+        vertical-align: top;
+    }
 
-  .upper-editor .upper-editor-right {
-    width: 50%;
-    height: 50px;
-    padding: 15px 20px;
-    display: inline-block;
-    text-align: left;
-  }
+    .upper-editor .upper-editor-right {
+        width: 40%;
+        height: 50px;
+        padding: 15px 20px;
+        display: inline-block;
+        text-align: left;
+    }
 
-  /*#a2adc9*/
+    /*#a2adc9*/
+    .upper-editor .btn-func { cursor:pointer; }
+    .upper-editor .svg-container {
+        margin-right: 20px;
+        display: inline-block;
+        vertical-align: text-top;
+    }
 
-  .upper-editor .svg-container {
-    margin-right: 20px;
-    display: inline-block;
-    vertical-align: text-top;
-  }
+    .upper-editor .upper-editor-right .upper-editor-right-each {
+        margin-right: 30px;
+        display: inline-block;
+        vertical-align: text-top;
+    }
 
-  .upper-editor .upper-editor-right .upper-editor-right-each {
-    margin-right: 30px;
-    display: inline-block;
-    vertical-align: text-top;
-  }
+    #canvas-opacity {
+        background-color: #f2f5fe;
+        border: 1px solid #57617d;
+        display: block;
+        width: 50px;
+        height: 17px;
+    }
 
-  #canvas-opacity {
-    background-color: #f2f5fe;
-    border: 1px solid #57617d;
-    display: block;
-    width: 50px;
-    height: 17px;
-  }
+    input[type=range] {
+        /*removes default webkit styles*/
+        -webkit-appearance: none;
+        /*fix for FF unable to apply focus style bug */
+        border: 1px solid white;
+        /*required for proper track sizing in FF*/
+        width: 170px;
+        height: 30px;
+        padding: 0 10px;
+        background-color: #ffffff;
+        margin-left: 490px;
+    }
 
-  input[type=range] {
-    /*removes default webkit styles*/
-    -webkit-appearance: none;
-    /*fix for FF unable to apply focus style bug */
-    border: 1px solid white;
-    /*required for proper track sizing in FF*/
-    width: 170px;
-    height: 30px;
-    padding: 0 10px;
-    background-color: #ffffff;
-    margin-left: 490px;
-  }
+    input[type=range]::-webkit-slider-runnable-track {
+        width: 150px;
+        height: 6px;
+        background: #c1c9db;
+        border: 2px solid #a0acc8;
+        border-radius: 3px;
+    }
 
-  input[type=range]::-webkit-slider-runnable-track {
-    width: 150px;
-    height: 6px;
-    background: #c1c9db;
-    border: 2px solid #a0acc8;
-    border-radius: 3px;
-  }
+    input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        border: none;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        background: #56607c;
+        margin-top: -9px;
+    }
 
-  input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    border: none;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    background: #56607c;
-    margin-top: -9px;
-  }
+    input[type=range]:focus {
+        outline: none;
+    }
 
-  input[type=range]:focus {
-    outline: none;
-  }
+    input[type=range]:focus::-webkit-slider-runnable-track {
+        background: #ccc;
+    }
 
-  input[type=range]:focus::-webkit-slider-runnable-track {
-    background: #ccc;
-  }
+    input[type=range]::-moz-range-track {
+        width: 150px;
+        height: 6px;
+        background: #c1c9db;
+        border: 2px solid #a0acc8;
+        border-radius: 3px;
+    }
 
-  input[type=range]::-moz-range-track {
-    width: 150px;
-    height: 6px;
-    background: #c1c9db;
-    border: 2px solid #a0acc8;
-    border-radius: 3px;
-  }
+    input[type=range]::-moz-range-thumb {
+        border: none;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        background: #56607c;
+        margin-top: -9px;
+    }
 
-  input[type=range]::-moz-range-thumb {
-    border: none;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    background: #56607c;
-    margin-top: -9px;
-  }
+    /*hide the outline behind the border*/
+    input[type=range]:-moz-focusring {
+        outline: 1px solid white;
+        outline-offset: -1px;
+    }
 
-  /*hide the outline behind the border*/
-  input[type=range]:-moz-focusring {
-    outline: 1px solid white;
-    outline-offset: -1px;
-  }
+    input[type=range]::-ms-track {
+        width: 150px;
+        height: 6px;
 
-  input[type=range]::-ms-track {
-    width: 150px;
-    height: 6px;
+        /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+        background: transparent;
 
-    /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
-    background: transparent;
+        /*leave room for the larger thumb to overflow with a transparent border */
+        border-color: transparent;
+        border-width: 6px 0;
 
-    /*leave room for the larger thumb to overflow with a transparent border */
-    border-color: transparent;
-    border-width: 6px 0;
+        /*remove default tick marks*/
+        color: transparent;
+    }
 
-    /*remove default tick marks*/
-    color: transparent;
-  }
+    input[type=range]::-ms-fill-lower {
+        background: #56607c;
+        border-radius: 10px;
+    }
 
-  input[type=range]::-ms-fill-lower {
-    background: #56607c;
-    border-radius: 10px;
-  }
+    input[type=range]::-ms-fill-upper {
+        background: #c1c9db;
+        border-radius: 10px;
+    }
 
-  input[type=range]::-ms-fill-upper {
-    background: #c1c9db;
-    border-radius: 10px;
-  }
+    input[type=range]::-ms-thumb {
+        border: none;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        background: #56607c;
+    }
 
-  input[type=range]::-ms-thumb {
-    border: none;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    background: #56607c;
-  }
+    .upper-editor .document-setup-button {
+        height: 26px;
+        padding: 5px 15px;
+        color: #ffffff;
+        background-color: #a2adc9;
+        border: 0;
+        outline: 0;
+        vertical-align: text-bottom;
+    }
 
-  .upper-editor .document-setup-button {
-    height: 26px;
-    padding: 5px 15px;
-    color: #ffffff;
-    background-color: #a2adc9;
-    border: 0;
-    outline: 0;
-    vertical-align: text-bottom;
-  }
+    .editor-body {
+        padding: 5em 1em 0 1em;
+        position: relative;
+        z-index: 1;
+    }
 
-  .editor-body {
-    padding: 5em 1em 0 1em;
-    position: relative;
-    z-index: 1;
-  }
+    .editor-body .canvas {
+        margin: 0 auto;
+        position: relative;
+        box-sizing: content-box;
 
-  .editor-body .canvas {
-    margin: 0 auto;
-    position: relative;
-    box-sizing: content-box;
+        background-color: #FFFFFF;
+        -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 
-    background-color: #FFFFFF;
-    -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+        width: 595px;
+        height: 842px;
+    }
 
-    width: 595px;
-    height: 842px;
-  }
+    .editor-body.dragging {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
 
-  .editor-body.dragging {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
+    .editor-body.dragging .canvas {
+        box-shadow: none;
+        border: 2px dashed #8995b6;
+    }
+    .editor-body .canvas .component.selected:after {
+        display:block;
+    }
 
-  .editor-body.dragging .canvas {
-    box-shadow: none;
-    border: 2px dashed #8995b6;
-  }
+    [data-tool] {
+        cursor: move; /* fallback if grab cursor is unsupported */
+        cursor: grab;
+        cursor: -moz-grab;
+        cursor: -webkit-grab;
+    }
 </style>
 <div class="upper-editor frame">
-  <div class="upper-editor-left">
-    <div class="svg-container" data-type="undo">
-      <img src="./static/images/undo-01.svg" style="height:15px;width:15px;">
+    <div class="upper-editor-left">
+        <div class="svg-container js_undo btn-func">
+            <img src="./static/images/undo-01.svg" style="height:15px;width:15px;">
+        </div>
+        <div class="svg-container js_redo btn-func">
+            <img src="./static/images/redo-01.svg" style="height:15px;width:15px;">
+        </div>
+        <div class="svg-container" data-tool="text-box">
+            <img src="./static/images/type-01.svg" style="height:15px;width:15px;">
+        </div>
+        <div class="svg-container">
+            <select>
+                <option></option>
+                <option></option>
+            </select>
+        </div>
+        <div class="svg-container" data-tool="image">
+            <img src="./static/images/image-01.svg">
+        </div>
+        <div class="svg-container" data-tool="link">
+            <img src="./static/images/link-01.svg" style="width:20px;height:15px;">
+        </div>
     </div>
-    <div class="svg-container" data-type="redo">
-      <img src="./static/images/redo-01.svg" style="height:15px;width:15px;">
+    <div class="upper-editor-right">
+        <div class="upper-editor-right-each">
+            <input type="text" name="chance" id="canvas-opacity" class="text" value="50">
+        </div>
+        <div class="upper-editor-right-each">
+            <button class="document-setup-button">Document Setup</button>
+        </div>
     </div>
-    <div class="svg-container" data-type="type">
-      <img src="./static/images/type-01.svg" style="height:15px;width:15px;">
-    </div>
-    <div class="svg-container">
-      <select>
-        <option></option>
-        <option></option>
-      </select>
-    </div>
-    <div class="svg-container" data-type="image">
-      <img src="./static/images/image-01.svg">
-    </div>
-    <div class="svg-container" data-type="link">
-      <img src="./static/images/link-01.svg" style="width:20px;height:15px;">
-    </div>
-  </div>
-  <div class="upper-editor-right">
-    <div class="upper-editor-right-each">
-      <input type="text" name="chance" id="canvas-opacity" class="text" value="50">
-    </div>
-    <div class="upper-editor-right-each">
-      <button class="document-setup-button">Document Setup</button>
-    </div>
-  </div>
 </div>
 <div class="downside-hidden">
-  <input type="range" id="canvas-opacity-range" class="vHorizon" min="1" max="100" step="1">
+    <input type="range" id="canvas-opacity-range" class="vHorizon" min="1" max="100" step="1">
 </div>
 <div class="editor-body">
-  <div class="canvas">
+    <div class="canvas">
 
-  </div>
+    </div>
 </div>
 
 <script type="text/javascript">
-  $(document).ready(function () {
-    $("#canvas-opacity-range").hide();
-    $("#canvas-opacity").click(function () {
-      $("#canvas-opacity-range").show();
+    $(document).ready(function () {
+        $("#canvas-opacity-range").hide();
+        $("#canvas-opacity").click(function () {
+            $("#canvas-opacity-range").show();
+        });
+        $(document).on('click', function (e) {
+            if (!(e.target.id == 'canvas-opacity' || e.target.id == 'canvas-opacity-range')) {
+                $('#canvas-opacity-range').hide();
+            }
+        });
+
+        $('#canvas-opacity-range').on('change', function () {
+            $('#canvas-opacity').val($('#canvas-opacity-range').val());
+        });
+
+        $('#canvas-opacity').on('keyup', function () {
+            $('#canvas-opacity-range').val($('#canvas-opacity').val());
+        });
     });
-    $(document).on('click', function (e) {
-      if (!(e.target.id == 'canvas-opacity' || e.target.id == 'canvas-opacity-range')) {
-        $('#canvas-opacity-range').hide();
-      }
+    $(document).on('click', '.js_undo', function(){_.undo();});
+    $(document).on('click', '.js_redo', function(){_.redo();});
+    $(document).on('click', '.editor-body .canvas .component', function(){
+        $(".editor-body .canvas .component.selected").removeClass("selected");
+        $(this).addClass("selected");
     });
-
-    $('#canvas-opacity-range').on('change', function () {
-      $('#canvas-opacity').val($('#canvas-opacity-range').val());
-    });
-
-    $('#canvas-opacity').on('keyup', function () {
-      $('#canvas-opacity-range').val($('#canvas-opacity').val());
-    });
-
-    var $editorBody = $(".editor-body");
-    var $canvas = $(".editor-body .canvas");
-    var $helpers = $(".upper-editor .svg-container");
-
-    $canvas.droppable({
-      drop: function (event, ui) {
-        var $handler = $(ui.draggable[0]);
-        if ($handler.hasClass("svg-container"))
-          addTool($handler);
-      }
-    });
-    $helpers.draggable({
-      cursor: "move",
-      helper: "clone",
-      start: function () {
-        $editorBody.addClass("dragging");
-      },
-      stop: function (e) {
-        console.log(e);
-        $editorBody.removeClass("dragging");
-      }
-    });
-
-    function addTool($handler) {
-      var type = $handler.data("type");
-      var $containers = $(".js_draggable_snap");
-      var $newContainer = $("<div>", {
-            "class": "component js_draggable_snap",
-            "data-type": type,
-            "data-id": type + $containers.length,
-            "html": type
-          }
-      )
-      .css("display", "inline-block")
-      .css("width", "100px")
-      .css("height", "80px")
-      .css("background-color", getRandomColor())
-      .appendTo($canvas)
-      .draggable({
-        snap: ".editor-body .canvas, .js_draggable_snap"
-      });
-    }
-  });
-
-  function getRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-    for (var i = 0; i < 6; i++ ) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  }
-
 </script>
