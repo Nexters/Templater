@@ -13,12 +13,13 @@ window.Templater = function () {
             }
         },
         Event: function (type, content) {
+            var version = this.version;
             if (!type)
                 throw new Error("Event has no type.");
 
             return {
                 type: type,
-                version: this.version,
+                version: version,
                 time: (new Date()).getTime(),
                 content: content || function () {
                 },
