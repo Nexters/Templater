@@ -1,9 +1,9 @@
 <style>
-    .component.ui-resizable:hover:after {
+    .component.ui-resizable:not([data-id=NaN]):hover:after {
         display: block;
     }
 
-    .component.ui-resizable:after {
+    .component.ui-resizable:not([data-id=NaN]):after {
         display: none;
         position: absolute;
         top: 0;
@@ -27,8 +27,8 @@
         $canvas.droppable({
             drop: function (event, ui) {
                 var $handler = $(ui.draggable[0]);
-                if ($handler.hasClass("svg-container")) {
-                    var addEvent = new _.Event(_.CONST.EVENT.ADD, function(){
+                if ($canvas.has($handler).length <= 0 && $handler.data('tool') != '') {
+                    var addEvent = new _.Event(_.CONST.EVENT.ADD, function () {
                         return addTool(event, $handler);
                     });
                     _.events.push(addEvent);
@@ -66,16 +66,41 @@
                     .draggable({
                         cursor: "move",
                         snap: ".editor-body .canvas, .js_draggable_snap",
-                        stop: function(){
-                            $(".editor-body .canvas .component.selected").removeClass("selected");
-                            $(this).addClass("selected");
+                        start: function () {
+                            var x = $newContainer.position().top;
+                            var y = $newContainer.position().left;
+                            this.rollback = function() {
+                                $newContainer
+                                        .css('top', x)
+                                        .css('left', y);
+                            };
+                        },
+                        stop: function () {
+                            var rollback = this.rollback;
+                            var x = $newContainer.position().top;
+                            var y = $newContainer.position().left;
+                            var moveEvent = new _.Event(_.CONST.EVENT.MOVE, function(){
+                                $(".editor-body .canvas .component.selected").removeClass("selected");
+                                $newContainer
+                                        .css('top', x)
+                                        .css('left', y)
+                                        .addClass("selected");
+
+                                return rollback;
+                            });
+                            _.events.push(moveEvent);
+                            _.excute();
                         }
                     })
                     .resizable({
                         containment: $canvas
                     })
+                    .click(function () {
+                        $(".editor-body .canvas .component.selected").removeClass("selected");
+                        $(this).addClass("selected");
+                    })
                     .appendTo($canvas);
-
+            $(".editor-body .canvas .component[data-id=NaN]").remove();
             return function () {
                 $newContainer.remove();
             }

@@ -8,7 +8,8 @@ window.Templater = function () {
             EVENT: {
                 ADD: 'addEvent',
                 SET: 'setEvent',
-                REMOVE: 'removeEvent'
+                REMOVE: 'removeEvent',
+                MOVE: 'moveEvent'
             }
         },
         Event: function (type, content) {
@@ -25,7 +26,6 @@ window.Templater = function () {
                 },
                 excute: function () {
                     this.rollback = this.content();
-                    console.log(this.rollback);
                 }
             }
         },
@@ -34,7 +34,6 @@ window.Templater = function () {
         undo: function () {
             var event = this.events[this.cursor - 1];
             if (!event) {
-                console.log("no undo");
                 return;
             }
             this.cursor--;
@@ -44,7 +43,6 @@ window.Templater = function () {
         redo: function () {
             var event = this.events[this.cursor];
             if (!event) {
-                console.log("no redo");
                 return;
             }
             this.cursor++;
