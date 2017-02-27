@@ -1,0 +1,30 @@
+{
+  "name": "CSSJSON",
+  "main": "cssjson.js",
+  "homepage": "https://github.com/aramk/CSSJSON",
+  "authors": [
+    "Aram Kocharyan https://github.com/aramk"
+  ],
+  "license": "MIT",
+  "description": "Converts CSS to JSON and back.",
+  "keywords": [
+    "css",
+    "json"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "e197c8bf5e",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "e197c8bf5e2dd0149a266bb86d731b72ae836a28"
+  },
+  "_source": "https://github.com/aramk/CSSJSON.git",
+  "_target": "*",
+  "_originalSource": "aramk-css-to-json"
+}
