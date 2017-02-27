@@ -1,166 +1,176 @@
 <link rel="stylesheet" href="./static/css/base.min.css">
 <style>
-  .signup {
-    font-size: 0;
-  }
-  .signup .signup_background {
-    width: 350px;
-    height: 450px;
-    background-color: #4d5b82;
-    color: #ffffff;
-    display: inline-block;
-    font-size: 14px;
-    vertical-align:top;
-  }
-  .signup .signup_background_title {
-    font-size: 17px;
-    margin: 30px 0 100px 20px;
-  }
+    article#article > * {
+        padding-top:10%;
+        text-align: center;
+    }
 
-  .signup .hr {
-  width: 50px;
-  padding-top: 5px;
-  border-bottom: 3px solid #000;
-  margin-left: 20px;
-  margin-bottom: 5px;
-  border-color: #f85b92;
-  }
+    .signup {
+        font-size: 0;
+        display: inline-block;
+    }
 
-  .signup .signup_background_content {
-    margin-left: 20px;
-    margin-bottom: 50px;
-  }
+    .signup .signup_background {
+        width: 350px;
+        height: 450px;
+        background-color: #4d5b82;
+        color: #ffffff;
+        display: inline-block;
+        font-size: 14px;
+        vertical-align: top;
+        padding-top:50px;
+    }
 
-  .signup .signup_background_content p:last-child {
-    margin-top: -14px;
-  }
+    .signup .signup_background_title {
+        font-size: 17px;
+        margin:0 auto;
+    }
 
-  .signup .signup_background_image {
-    margin-top: 80px;
-    text-align: center;
-  }
+    .signup .hr {
+        width: 50px;
+        padding-top: 5px;
+        border-bottom: 3px solid #000;
+        border-color: #f85b92;
+        margin:0 auto;
+    }
 
-  .signup .signup_form {
-    width: 350px;
+    .signup .signup_background_content {
+        margin-left: 20px;
+        margin-bottom: 50px;
+    }
 
-    background-color: #000000;
-    color: #f8f8f8;
-    display: inline-block;
-    font-size: 14px;
-  }
+    .signup .signup_background_content p:last-child {
+        margin-top: -14px;
+    }
 
-  .signup .signup_title {
-    padding: 30px 0 10px 20px;
-    border-bottom: 1.5px solid #3d465b;
-  }
+    .signup .signup_background_image {
+        margin-top: 80px;
+        text-align: center;
+    }
 
-  .signup .move_to_loginpage {
-    display: inline-block;
-    font-size: 14px;
-    color: #a3a3a3;
-    margin-left: 40px;
-  }
+    .signup .signup_form {
+        width: 350px;
+        text-align:left;
 
-  .signup .move_to_loginpage span {
-    display: inline-block;
-    margin-left: 5px;
-    color: #f45b92;
-    opacity: 0.9;
-  }
+        background-color: #000000;
+        color: #f8f8f8;
+        display: inline-block;
+        font-size: 14px;
+    }
 
-  .signup .move_to_loginpage a {
-    color: #a3a3a3;
-    text-decoration: none;
-    opacity: 0.5;
-  }
+    .signup .signup_title {
+        padding: 30px 0 10px 20px;
+        border-bottom: 1.5px solid #3d465b;
+    }
 
-  .signup .move_to_loginpage a:hover {
-    opacity: 1;
-  }
+    .signup .move_to_loginpage {
+        display: inline-block;
+        font-size: 14px;
+        color: #a3a3a3;
+        margin-left: 40px;
+    }
 
-  .signup .signup_content {
-    padding: 30px 0 30px 20px;
-    color: #a3a3a3;
-  }
+    .signup .move_to_loginpage span {
+        display: inline-block;
+        margin-left: 5px;
+        color: #f45b92;
+        opacity: 0.9;
+    }
 
-  .signup .signup_username_label, .signup_email_label, .signup_password_label {
-    font-size: 14px;
-    display: block;
-    margin-bottom: 20px;
-  }
+    .signup .move_to_loginpage a {
+        color: #a3a3a3;
+        text-decoration: none;
+        opacity: 0.5;
+    }
 
-  .signup .signup_username_input, .signup_email_input, .signup_password_input {
-    width: 290px;
-    padding: 5px;
-    margin-bottom: 20px;
-    background-color: #000000;
-    border: 0;
-    border-bottom: 1px solid #1f2125;
-    color: #ffffff;
-  }
+    .signup .move_to_loginpage a:hover {
+        opacity: 1;
+    }
 
-  .signup .signup_username_input:focus, .signup_email_input:focus, .signup_password_input:focus {
-    border-bottom: 1px solid #ffffff;
-  }
+    .signup .signup_content {
+        padding: 30px 0 30px 20px;
+        color: #a3a3a3;
+    }
 
-  .signup .error_message {
-    margin-top: -10px;
-    margin-bottom: 10px;
-    display: block;
-  }
-  .signup .create_account_btn {
-    height: 40px;
-    width: 290px;
-    margin-top: 25px;
-    background-color: #f45b92;
-    border: 1px solid #ffffff;
-    cursor: pointer;
-    color: #ffffff;
-  }
+    .signup .signup_username_label, .signup_email_label, .signup_password_label {
+        font-size: 14px;
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    .signup .signup_username_input, .signup_email_input, .signup_password_input {
+        width: 290px;
+        padding: 5px;
+        margin-bottom: 20px;
+        background-color: #000000;
+        border: 0;
+        border-bottom: 1px solid #1f2125;
+        color: #ffffff;
+    }
+
+    .signup .signup_username_input:focus, .signup_email_input:focus, .signup_password_input:focus {
+        border-bottom: 1px solid #ffffff;
+    }
+
+    .signup .error_message {
+        margin-top: -10px;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .signup .create_account_btn {
+        height: 40px;
+        width: 290px;
+        margin-top: 25px;
+        background-color: #f45b92;
+        border: 1px solid #ffffff;
+        cursor: pointer;
+        color: #ffffff;
+    }
 </style>
 
 <div class="signup">
-  <div class="signup_background">
-    <div class="signup_background_title">
-      Templater
+    <div class="signup_background">
+        <div class="signup_background_title">
+            Templater
+        </div>
+        <div class='hr'></div>
+        <div class="signup_background_content">
+            <p>Join Templator today</p>
+            <p>Manage same forms with different contents</p>
+            <p>Save your time and work efficiently</p>
+        </div>
+        <div class="signup_background_image">
+            <img src="./static/images/firstpageimage.png">
+        </div>
     </div>
-    <div class='hr'></div>
-    <div class="signup_background_content">
-      <p>Join Templator today</p>
-      <p>Manage same forms with different contents</p>
-      <p>Save your time and work efficiently</p>
-    </div>
-    <div class="signup_background_image">
-      <img src="./static/images/firstpageimage.png">
-    </div>
-  </div>
-  <div class="signup_form">
+    <div class="signup_form">
 
-    <div class="signup_title">
-      Sign Up
-      <div class="move_to_loginpage">
-        <a href="#">Already have an account?<span>Log in</span></a>
-      </div>
-    </div>
-    <div class="signup_content">
-      <div class="signup_username">
-        <label class="signup_username_label">Username</label>
-        <input class="signup_username_input" type="text">
-      </div>
-      <div class="signup_email">
-        <label class="signup_email_label">Email</label>
-        <input class="signup_email_input" type="text">
-      </div>
-      <div class="signup_password">
-        <label class="signup_password_label">Password</label>
-        <input class="signup_password_input" type="password">
-      </div>
-      <div class="signup_bottom">
+        <div class="signup_title">
+            Sign Up
+            <div class="move_to_loginpage">
+                <a href="#">Already have an account?<span>Log in</span></a>
+            </div>
+        </div>
+        <div class="signup_content">
+            <div class="signup_username">
+                <label class="signup_username_label">Username</label>
+                <input class="signup_username_input" type="text">
+            </div>
+            <div class="signup_email">
+                <label class="signup_email_label">Email</label>
+                <input class="signup_email_input" type="text">
+            </div>
+            <div class="signup_password">
+                <label class="signup_password_label">Password</label>
+                <input class="signup_password_input" type="password">
+            </div>
+            <div class="signup_bottom">
         <span class="error_message">
           error messages
         </span>
-        <button class="create_account_btn">Create Account</button>
-      </div>
+                <button class="create_account_btn">Create Account</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

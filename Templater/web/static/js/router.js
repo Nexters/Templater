@@ -131,13 +131,53 @@ window.Router = function (_, init) {
                 });
             };
 
-            nav().done(function(){
-                aside().done(function(){
-                    body().done(function(){
+            nav().done(function () {
+                aside().done(function () {
+                    body().done(function () {
                         util();
                     });
                 })
             });
+        },
+        login: function (data) {
+            data = data || {};
+            var body = function () {
+                var dfd = $.Deferred();
+                _.load.module({
+                    key: 'login-body',
+                    url: "./templates/user/login.mustache",
+                    callback: function () {
+                        _.print.module_only(
+                            'login-body',
+                            data.body,
+                            "article#article"
+                        )(0, 0, 1);
+                        dfd.resolve();
+                    }
+                });
+                return dfd;
+            };
+            body();
+        },
+        signup: function (data) {
+            data = data || {};
+            var body = function () {
+                var dfd = $.Deferred();
+                _.load.module({
+                    key: 'signup-body',
+                    url: "./templates/user/signup.mustache",
+                    callback: function () {
+                        _.print.module_only(
+                            'signup-body',
+                            data.body,
+                            "article#article"
+                        )(0, 0, 1);
+                        dfd.resolve();
+                    }
+                });
+                return dfd;
+            };
+            body();
         }
     };
 };
