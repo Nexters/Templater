@@ -51,8 +51,8 @@ window.Templater = function () {
             return event.excute();
         },
         excute: function () {
-            for (this.undoCount; this.undoCount > 0; this.undoCount--) {
-                this.events.pop();
+            for (this.cursor; this.undoCount > 0; this.undoCount--) {
+                this.events.splice(this.cursor, 1);
             }
 
             for (this.cursor; this.cursor < this.events.length; this.cursor++) {
@@ -99,31 +99,31 @@ window.Templater = function () {
                     throw "해당하는 템플릿이 없습니다.";
                 }
                 $.get(option.url)
-                    .done(function (result) {
-                        if (result) {
-                            var $tpl = $("<div></div>");
-                            $tpl.html(result);
-                            modules[option.key] = {};
-                            if ($tpl.find("script").length > 0) {
-                                modules[option.key].script = $tpl.find("script").html();
-                                $tpl.find("script").remove();
-                            }
-
-                            if ($tpl.find("style").length > 0) {
-                                modules[option.key].style = $tpl.find("style").html();
-                                $tpl.find("style").remove();
-                            }
-
-                            modules[option.key].template = $tpl.html();
-
-                            if (typeof option.callback === "function") {
-                                option.callback(modules[option.key]);
-                            }
+                .done(function (result) {
+                    if (result) {
+                        var $tpl = $("<div></div>");
+                        $tpl.html(result);
+                        modules[option.key] = {};
+                        if ($tpl.find("script").length > 0) {
+                            modules[option.key].script = $tpl.find("script").html();
+                            $tpl.find("script").remove();
                         }
-                    })
-                    .fail(function (error) {
-                        throw error;
-                    });
+
+                        if ($tpl.find("style").length > 0) {
+                            modules[option.key].style = $tpl.find("style").html();
+                            $tpl.find("style").remove();
+                        }
+
+                        modules[option.key].template = $tpl.html();
+
+                        if (typeof option.callback === "function") {
+                            option.callback(modules[option.key]);
+                        }
+                    }
+                })
+                .fail(function (error) {
+                    throw error;
+                });
             }
         },
         print: {
@@ -165,6 +165,16 @@ window.Templater = function () {
             }
         },
         init: function (parent) {
+            var self = this;
+            var undo = this.undo;
+            var redo = this.redo;
+            keyboardJS.on('ctrl > z', function() {
+                undo.call(self);
+            });
+            keyboardJS.on('ctrl > y', function() {
+                redo.call(self);
+            });
+
             parent = parent || this;
             for (var key in parent) {
                 if (typeof key === "object") {

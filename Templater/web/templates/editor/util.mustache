@@ -1,109 +1,158 @@
 <style>
-    .component.ui-resizable:not([data-id=NaN]):hover:after {
-        display: block;
-    }
+  .component.ui-resizable:not([data-id=NaN]):hover:after {
+    display: block;
+  }
 
-    .component.ui-resizable:not([data-id=NaN]):after {
-        display: none;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        content: ' ';
-        border: 1px dashed #0b58a2;
-    }
+  .component.ui-resizable:not([data-id=NaN]):after {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: ' ';
+    border: 1px dashed #0b58a2;
+  }
 
-    .ui-icon-gripsmall-diagonal-se {
-        background: none;
-    }
+  .ui-icon-gripsmall-diagonal-se {
+    background: none;
+  }
 </style>
 <script>
-    $(document).ready(function () {
-        var $editorBody = $(".editor-body");
-        var $canvas = $(".editor-body .canvas");
-        var $helpers = $("[data-tool]");
+  $(document).ready(function () {
+    var $editorBody = $(".editor-body");
+    var $canvas = $(".editor-body .canvas");
+    var $helpers = $("[data-tool]");
 
-        $canvas.droppable({
-            drop: function (event, ui) {
-                var $handler = $(ui.draggable[0]);
-                if ($canvas.has($handler).length <= 0 && $handler.data('tool') != '') {
-                    var addEvent = new _.Event(_.CONST.EVENT.ADD, function () {
-                        return addTool(event, $handler);
-                    });
-                    _.events.push(addEvent);
-                    _.excute();
-                }
-            }
-        });
-        $helpers.draggable({
-            cursor: "move",
-            helper: "clone",
-            start: function () {
-                $editorBody.addClass("dragging");
-            },
-            stop: function () {
-                $editorBody.removeClass("dragging");
-            }
-        });
-
-        function addTool(event, $handler) {
-            var type = $handler.data("tool");
-            var $containers = $(".js_draggable_snap");
-            var $newContainer = $("<div>", {
-                        "class": "component js_draggable_snap",
-                        "data-type": type,
-                        "data-id": type + $containers.length,
-                        "html": type
-                    }
-            )
-                    .css("display", "inline-block")
-                    .css("width", "100px")
-                    .css("height", "80px")
-                    .css("top", event.pageY - $canvas.offset().top)
-                    .css("left", event.pageX - $canvas.offset().left)
-                    .css("position", "absolute")
-                    .draggable({
-                        cursor: "move",
-                        snap: ".editor-body .canvas, .js_draggable_snap",
-                        start: function () {
-                            var x = $newContainer.position().top;
-                            var y = $newContainer.position().left;
-                            this.rollback = function() {
-                                $newContainer
-                                        .css('top', x)
-                                        .css('left', y);
-                            };
-                        },
-                        stop: function () {
-                            var rollback = this.rollback;
-                            var x = $newContainer.position().top;
-                            var y = $newContainer.position().left;
-                            var moveEvent = new _.Event(_.CONST.EVENT.MOVE, function(){
-                                $(".editor-body .canvas .component.selected").removeClass("selected");
-                                $newContainer
-                                        .css('top', x)
-                                        .css('left', y)
-                                        .addClass("selected");
-
-                                return rollback;
-                            });
-                            _.events.push(moveEvent);
-                            _.excute();
-                        }
-                    })
-                    .resizable({
-                        containment: $canvas
-                    })
-                    .click(function () {
-                        $(".editor-body .canvas .component.selected").removeClass("selected");
-                        $(this).addClass("selected");
-                    })
-                    .appendTo($canvas);
-            $(".editor-body .canvas .component[data-id=NaN]").remove();
-            return function () {
-                $newContainer.remove();
-            }
+    $canvas.droppable({
+      drop: function (event, ui) {
+        var $handler = $(ui.draggable[0]);
+        if ($canvas.has($handler).length <= 0 && $handler.data('tool') != '') {
+          var addEvent = new _.Event(_.CONST.EVENT.ADD, function () {
+            return addTool({
+              event: event,
+              handler: $handler
+            });
+          });
+          _.events.push(addEvent);
+          _.excute();
         }
+      }
     });
+
+    $helpers.draggable({
+      cursor: "move",
+      helper: "clone",
+      start: function () {
+        $editorBody.addClass("dragging");
+      },
+      stop: function () {
+        $editorBody.removeClass("dragging");
+      }
+    });
+
+    function addTool(option) {
+      var event = option.event;
+      var $handler = option.handler;
+      var $container = option.origin;
+      var resizable = option.resizable || true;
+
+      var $containers = $(".component");
+      var $newContainer = $container || (
+          $("<div>", {
+              "class": "component js_draggable_snap",
+              "data-type": $handler.data("tool"),
+              "data-id": $handler.data("tool") + $containers.length,
+              "html": $handler.data("tool")
+            }
+          )
+          .css("top", event.pageY - $canvas.offset().top)
+          .css("left", event.pageX - $canvas.offset().left)
+        )
+        .css("display", "inline-block")
+        .css("width", "100px")
+        .css("height", "80px")
+        .css("position", "absolute")
+        .draggable({
+          cursor: "move",
+          snap: ".editor-body .canvas, .js_draggable_snap",
+          start: function () {
+            var x = this.prevX = $newContainer.position().left;
+            var y = this.prevY = $newContainer.position().top;
+            this.rollback = function () {
+              $newContainer
+              .css('left', x)
+              .css('top', y);
+            };
+          },
+          stop: function (e, ui) {
+            var canvasStart = $canvas.offset();
+            var canvasFin = {
+              top: canvasStart.top + $canvas.height(),
+              left: canvasStart.left + $canvas.width()
+            };
+            var prevX = this.prevX;
+            var prevY = this.prevY;
+
+            if (
+              !(ui.offset.left >= canvasStart.left
+              && ui.offset.top >= canvasStart.top
+              && ui.offset.left < canvasFin.left
+              && ui.offset.top < canvasFin.top)
+            ) {
+              var removeEvent = new _.Event(_.CONST.EVENT.REMOVE, function () {
+                var position = {
+                  left: prevX,
+                  top: prevY
+                };
+                ui.helper.hide();
+                return function () {
+                  ui.helper
+                  .css("left", position.left)
+                  .css("top", position.top)
+                  .show();
+                };
+              });
+              _.events.push(removeEvent);
+              _.excute();
+              return;
+            }
+
+            var rollback = this.rollback;
+            var x = $newContainer.position().top;
+            var y = $newContainer.position().left;
+            var moveEvent = new _.Event(_.CONST.EVENT.MOVE, function () {
+              $(".editor-body .canvas .component.selected").removeClass("selected");
+              $newContainer
+              .css('top', x)
+              .css('left', y)
+              .addClass("selected");
+
+              return rollback;
+            });
+            _.events.push(moveEvent);
+            _.excute();
+          }
+        });
+
+      if (resizable) {
+        $newContainer
+        .resizable({
+          containment: $canvas
+        });
+      }
+
+      $newContainer
+      .click(function () {
+        $(".editor-body .canvas .component.selected").removeClass("selected");
+        $(this).addClass("selected");
+      })
+      .appendTo($canvas);
+
+      $(".editor-body .canvas .component[data-id=NaN]").remove();
+      return function () {
+        $newContainer.remove();
+      }
+    }
+  });
 </script>
