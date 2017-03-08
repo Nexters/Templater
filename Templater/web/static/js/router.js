@@ -118,7 +118,7 @@ window.Router = function (_, init) {
                         _.print.module_only(
                             'editor-aside',
                             data.aside
-                        )(90, 180, 2).addClass("pinned");
+                        )(30, 160, 2).addClass("pinned");
                         dfd.resolve();
                     }
                 });
