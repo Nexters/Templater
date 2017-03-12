@@ -286,10 +286,8 @@
               }
             ).on('keydown', function(e){
               if($(this).is(':focus')) {
-                e.stopPropagation();
                 // Remove event
                 if(e.keyCode == 46) {
-                  e.preventDefault();
                   var prevX = $(this).position().left;
                   var prevY = $(this).position().top;
                   var removeEvent = getRemoveEvent($(this), {
@@ -300,7 +298,11 @@
                   _.events.push(removeEvent);
                   _.excute();
                 } else {
-                  return false;
+                  if(!e.ctrlKey || e.keyCode == 86) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    return false;
+                  }
                 }
               }
             })
@@ -381,7 +383,8 @@
               this.rollback = function () {
                 $newContainer
                 .css('width', width + 'px')
-                .css('height', height + 'px');
+                .css('height', height + 'px')
+                .resize();
               };
             },
             stop: function (e, ui) {
@@ -391,7 +394,8 @@
               var resizeEvent = new _.Event(_.CONST.EVENT.MOVE, function () {
                 $newContainer
                 .css('width', width + 'px')
-                .css('height', height + 'px');
+                .css('height', height + 'px')
+                .resize();
 
                 select($newContainer).focus();
                 return rollback;
