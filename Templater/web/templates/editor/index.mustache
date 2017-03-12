@@ -19,16 +19,54 @@
     });
 
     var $canvas = $('.editor-body .canvas');
-    var $canvasWidth = $('.editor-panel-body-canvas [name=canvas-width]');
-    var $canvasHeight = $('.editor-panel-body-canvas [name=canvas-height]');
+    var $canvasWidth = $('input[name=canvas-width]');
+    var $canvasHeight = $('input[name=canvas-height]');
+    var $canvasColor = $("input[name=canvas-color]");
+
+    var $shapeWidth = $('input[name=shape-width]');
+    var $shapeHeight = $('input[name=shape-height]');
+    var $shapeColor = $("input[name=shape-color]");
     $canvasWidth
-    .keyup(function () {
+    .change(function () {
       $canvas.width($(this).val());
-    }).val($canvas.width());
+    })
+    .trigger('change')
+    .val($canvas.width());
+
     $canvasHeight
-    .keyup(function () {
+    .change(function () {
       $canvas.height($(this).val());
-    }).val($canvas.height());
+    })
+    .trigger('change')
+    .val($canvas.height());
+
+    $canvasColor
+    .change(function() {
+      $canvas.css('background', '#' + $(this).val());
+    })
+    .trigger('change')
+    .val(_.convert.rgb2hex($canvas.css('background-color')));
+
+    $shapeWidth
+    .change(function () {
+      $('.component.selected').width($(this).val());
+    })
+    .trigger('change')
+    .val($('.component.selected').width());
+
+    $shapeHeight
+    .change(function () {
+      $('.component.selected').height($(this).val());
+    })
+    .trigger('change')
+    .val($('.component.selected').height());
+
+    $shapeColor
+    .change(function() {
+      $('.component.selected').css('background', '#' + $(this).val());
+    })
+    .trigger('change')
+    .val(_.convert.rgb2hex($('.component.selected').css('background-color')));
   });
   $(document).on('click', '.js_undo.btn-func', function () {
     _.undo();
@@ -213,6 +251,8 @@
 
     width: 595px;
     height: 842px;
+
+    -webkit-print-color-adjust: exact;
   }
 
   .editor-body.dragging {

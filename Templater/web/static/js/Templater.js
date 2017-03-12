@@ -63,6 +63,20 @@ window.Templater = function () {
     events: [],
     canvas: {},
     modules: {},
+    convert: {
+      rgb2hex: function(rgb) {
+        if(!rgb) return;
+
+        var hexDigits = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"];
+        var hex = function(x) {
+          return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
+        };
+
+        var rgba = rgb.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*(\d+)\)$/);
+        rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+        return rgba ? hex(rgba[4]) + hex(rgba[1]) + hex(rgba[2]) + hex(rgba[3]) : hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+      }
+    },
     get: {
       template: function (key) {
         var $head = $("head");
@@ -130,6 +144,7 @@ window.Templater = function () {
     print: {
       module_only: function (key, data, destination) {
         $("aside#aside [data-id=" + key + "]").remove();
+        $(destination).empty();
         return this.module(key, data, destination);
       },
       module: function (key, data, destination) {

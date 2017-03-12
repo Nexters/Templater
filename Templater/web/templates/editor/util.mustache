@@ -1,8 +1,4 @@
 <style>
-  .component.ui-resizable {
-    background-color: rgba(0, 0, 0, 0.02);
-  }
-
   .component.ui-resizable:not([data-id=NaN]):before {
     display: inline-block;
     position: absolute;
@@ -12,10 +8,10 @@
     font-size: 0.5em;
     padding: 1px 5px;
     background-color: rgba(87, 97, 125, 0.3);
-    white-space:nowrap;
-    overflow:hidden;
-    max-width:100%;
-    opacity: 0.5;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%;
+    opacity: 0.8;
   }
 
   .component.ui-resizable:not([data-id=NaN]):hover:before {
@@ -41,6 +37,25 @@
   .ui-icon-gripsmall-diagonal-se {
     background: none;
   }
+
+  .colorpicker {
+    display:inline-block;
+    width:auto;
+    height:auto;
+    padding:5px;
+    border:0;
+    background-color:#57617d;
+    font-size:0;
+  }
+  .colorpicker > * {
+    display:inline-block;
+    left:0;
+    top:0;
+    position:relative;
+    border:0;
+  }
+  .colorpicker_color { margin-right:10px;}
+  .colorpicker_hue ~ * { display:none; }
 </style>
 <script>
   $(document).ready(function () {
@@ -50,8 +65,24 @@
 
     $(document).on('click', function (e) {
       var $target = $(e.target);
-      if(!$target.hasClass('component') && !$target.parents('div').hasClass('component')) {
+      if (!$target.hasClass('component') &&
+        !$target.parents('div').hasClass('component') &&
+        !$target.hasClass('colorpicker_hue') &&
+        !$target.parents('div').hasClass('colorpicker_hue')
+      ) {
         $(".editor-body .canvas .component.selected").removeClass("selected");
+      }
+    });
+
+    // 툴 드래깅 할 때 캔버스 스타일 변할 수 있도록
+    $helpers.draggable({
+      cursor: "move",
+      helper: "clone",
+      start: function () {
+        $editorBody.addClass("dragging");
+      },
+      stop: function () {
+        $editorBody.removeClass("dragging");
       }
     });
 
@@ -89,21 +120,22 @@
               // insert 버튼 이벤트
               $component.find('.insert-url-btn-each.insert')
               .on('click', function () {
+                var $image = $('<img>', {
+                  class: 'content',
+                  src: $component.find('.insert-url-box').val()
+                });
+
                 args.children = [
-                  $('<img>', {
-                    class: 'content',
-                    src: $component.find('.insert-url-box').val()
-                  }).css({
-                    width: '100%',
-                    height: '100%'
-                  })
+                  $image
                 ];
 
-                // add 이벤트 추가 및 실행
-                _.events.push(addEvent);
-                _.excute();
+                $image.load(function(){
+                  // add 이벤트 추가 및 실행
+                  _.events.push(addEvent);
+                  _.excute();
 
-                $component.remove();
+                  $component.remove();
+                });
               });
 
               // cancel 버튼 이벤트
@@ -146,24 +178,28 @@
               });
             });
             return;
+          } else if (toolType === 'text-box') {
+            args.children = [
+              $('<textarea>', {
+                class: 'content'
+              })
+              .css({
+                border: 0,
+                padding: 'none',
+                margin: 'none',
+                background: 'transparent',
+                resize: 'none',
+                overflow: 'hidden'
+              })
+            ];
+          } else if(toolType === 'line') {
+            args.handle = 'e, w';
           }
 
           // add 이벤트 추가 및 실행
           _.events.push(addEvent);
           _.excute();
         }
-      }
-    });
-
-    // 툴 드래깅 할 때 캔버스 스타일 변할 수 있도록
-    $helpers.draggable({
-      cursor: "move",
-      helper: "clone",
-      start: function () {
-        $editorBody.addClass("dragging");
-      },
-      stop: function () {
-        $editorBody.removeClass("dragging");
       }
     });
 
@@ -210,6 +246,7 @@
       var $container = option.origin;
       var $stuff = option.stuff;
       var resizable = option.resizable || true;
+      var handle = option.handle || 'all';
       var children = option.children || [];
 
       if (children instanceof Array) {
@@ -218,10 +255,15 @@
           if (child.is('img')) {
             var width = child[0].naturalWidth > $canvas.width() ? $canvas.width() : child[0].naturalWidth;
             var height = child[0].naturalHeight * width / child[0].naturalWidth;
-            defaultSize.width = width + 'px';
-            defaultSize.height = height + 'px';
+            if(width > 0) {
+              defaultSize.width = width + 'px';
+              defaultSize.height = height + 'px';
+            }
           }
         });
+      }
+      if($handler.data('tool') === 'line') {
+        defaultSize.height = '2px';
       }
 
       var $containers = $(".component");
@@ -293,12 +335,11 @@
               var x = $newContainer.position().top;
               var y = $newContainer.position().left;
               var moveEvent = new _.Event(_.CONST.EVENT.MOVE, function () {
-                $(".editor-body .canvas .component.selected").removeClass("selected");
                 $newContainer
                 .css('top', x)
-                .css('left', y)
-                .addClass("selected");
+                .css('left', y);
 
+                select($newContainer);
                 return rollback;
               });
               _.events.push(moveEvent);
@@ -309,7 +350,7 @@
         if (resizable) {
           $newContainer
           .resizable({
-            handles: "all",
+            handles: handle,
             snap: '.editor-body .canvas, .component.js_draggable_snap',
             snapTolerance: 5,
             containment: $canvas,
@@ -329,9 +370,9 @@
               var resizeEvent = new _.Event(_.CONST.EVENT.MOVE, function () {
                 $newContainer
                 .css('width', width + 'px')
-                .css('height', height + 'px')
-                .addClass("selected");
+                .css('height', height + 'px');
 
+                select($newContainer);
                 return rollback;
               });
               _.events.push(resizeEvent);
@@ -347,16 +388,19 @@
         }
 
         $newContainer
-        .click(function () {
-          $(".editor-body .canvas .component.selected").removeClass("selected");
-          $(this).addClass("selected");
-        })
-        .resize(function () {
-          $(this).find('img.content')
-          .css({
-            width: $(this).width() + 'px',
-            height: $(this).height() + 'px'
-          })
+        .on({
+          resize: function () {
+            $(this).find('.content')
+            .css({
+              display: 'inline-block',
+              width: $(this).width() + 'px',
+              height: $(this).height() + 'px'
+            })
+          },
+          click: function () {
+            $(this).find('.content').focus();
+            select($(this));
+          }
         })
         .appendTo($canvas);
       } else {
@@ -367,7 +411,11 @@
       $(".editor-body .canvas .component[data-id=NaN]").remove();
       $(".editor-body .canvas .component:not(:visible)").remove();
 
-      $container.addClass('selected');
+      select($container);
+      $container.find('.content').css({
+        width: $container.width() + 'px',
+        height: $container.height() + 'px'
+      });
 
       return {
         origin: $container,
@@ -376,6 +424,14 @@
         }
       };
     }
-  })
-  ;
+
+    function select($component) {
+      $(".editor-body .canvas .component.selected").removeClass("selected");
+      $component.addClass('selected');
+
+      $('input[name=shape-width]').val($component.width());
+      $('input[name=shape-height]').val($component.height());
+      $('input[name=shape-color]').val(_.convert.rgb2hex($component.css('background-color')));
+    }
+  });
 </script>

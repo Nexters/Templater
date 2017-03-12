@@ -26,6 +26,8 @@
     "aramk-css-to-json": "latest",
     "KeyboardJS": "^2.3.3",
     "jQuery.print": "^1.5.1",
-    "jquery.ui.resizable.snap.ext": "jquery-ui.resizable-snap-extension#^1.9.1"
+    "jquery.ui.resizable.snap.ext": "jquery-ui.resizable-snap-extension#^1.9.1",
+    "jquery-colorpicker": "^1.0.2",
+    "jquery-migrate": "^3.0.0"
   }
 }
