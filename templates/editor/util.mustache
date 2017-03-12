@@ -286,10 +286,12 @@
             ).on('keydown', function(e){
               if($(this).is(':focus')) {
                 e.stopPropagation();
+                e.preventDefault();
+
+                // Remove event
                 if(e.keyCode == 46) {
-                  console.log("??");
-                  var prevX = $(this).offset().left;
-                  var prevY = $(this).offset().top;
+                  var prevX = $(this).position().left;
+                  var prevY = $(this).position().top;
                   var removeEvent = getRemoveEvent($(this), {
                     prevX: prevX,
                     prevY: prevY
@@ -356,7 +358,7 @@
                 .css('top', x)
                 .css('left', y);
 
-                select($newContainer);
+                select($newContainer).focus();
                 return rollback;
               });
               _.events.push(moveEvent);
@@ -389,7 +391,7 @@
                 .css('width', width + 'px')
                 .css('height', height + 'px');
 
-                select($newContainer);
+                select($newContainer).focus();
                 return rollback;
               });
               _.events.push(resizeEvent);
@@ -427,7 +429,7 @@
       $(".editor-body .canvas .component[data-id=NaN]").remove();
       $(".editor-body .canvas .component:not(:visible)").remove();
 
-      select($container);
+      select($container).focus();
       $container.find('.content').css({
         display: 'inline-block',
         width: $container.width() + 'px',
@@ -461,12 +463,13 @@
     function select($component) {
       $(".editor-body .canvas .component.selected").removeClass("selected");
       $component
-      .addClass('selected')
-      .focus();
+      .addClass('selected');
 
       $('input[name=shape-width]').val($component.width());
       $('input[name=shape-height]').val($component.height());
       $('input[name=shape-color]').val(_.convert.rgb2hex($component.css('background-color')));
+
+      return $component;
     }
   });
 </script>
