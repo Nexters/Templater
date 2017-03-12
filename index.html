@@ -6,10 +6,16 @@
   <title>Title</title>
   <link rel="stylesheet" href="./static/css/base.min.css">
   <link rel="stylesheet" href="./static/bower_components/jquery-ui/themes/flick/jquery-ui.min.css">
+  <link rel="stylesheet" href="./static/bower_components/jquery-colorpicker/css/colorpicker.min.css">
   <script src="./static/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="./static/bower_components/jquery-migrate/jquery-migrate.min.js"></script>
+  <script src="./static/bower_components/jQuery.print/jQuery.print.js"></script>
   <script src="./static/bower_components/jquery-ui/jquery-ui.min.js"></script>
+  <script src="./static/bower_components/jquery.ui.resizable.snap.ext/jquery.ui.resizable.snap.ext.js"></script>
   <script src="./static/bower_components/mustache.js/mustache.min.js"></script>
   <script src="./static/bower_components/aramk-css-to-json/cssjson.js"></script>
+  <script src="./static/bower_components/KeyboardJS/dist/keyboard.min.js"></script>
+  <script src="./static/js/colorpicker.fix.js"></script>
   <script src="./static/js/Templater.js"></script>
   <script src="./static/js/base.js"></script>
   <script src="./static/js/router.js"></script>
@@ -18,9 +24,9 @@
 <header id="header">
   <div class="frame">
     <div class="left">
-      <div class="logo">
+      <a class="logo inner" href="/">
         <img src="./static/images/logo.svg">
-      </div>
+      </a>
       <label class="search-box"> <img src="./static/images/search_icon.svg"> <input type="text" class="search-contents">
       </label>
     </div>

@@ -1,0 +1,58 @@
+<style>
+  .external-box {
+    width: 250px;
+    color: #57607d;
+    background-color: #ffffff;
+    font-size: 13px;
+    -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .external-box .box-title {
+    color: #ffffff;
+    background-color: #57607d;
+    padding: 10px 0 10px 25px;
+    font-weight: bold;
+  }
+  .external-box .box-content {
+    padding: 16px 25px 12px 25px;
+  }
+
+  .external-box .box-message {
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 16px;
+  }
+
+  .external-box .insert-url-box {
+    width: 200px;
+    height: 23px;
+    margin-bottom: 16px;
+    border-radius: 2px;
+    background-color: #eeeff4;
+    border: 0;
+  }
+
+  .external-box .insert-url-btn-each {
+    display:inline-block;
+    padding: 5px 15px;
+    color: #57607d;
+    font-weight: bold;
+    background-color: #ffffff;
+    border: 0;
+    cursor:pointer;
+  }
+</style>
+<div class="external-box">
+  <div class="box-title">{{title}}</div>
+  <div class="box-content">
+    <span class="box-message">{{content}}</span>
+    <input type="text" class="insert-url-box">
+    <div class="insert-url-btn-groups">
+      <button class="insert-url-btn-each cancel">Cancel</button>
+      <button class="insert-url-btn-each insert">Insert</button>
+    </div>
+  </div>
+
+</div>

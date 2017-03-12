@@ -1,0 +1,15 @@
+{
+  "name": "jquery-colorpicker",
+  "homepage": "https://github.com/Belelros/jQuery-ColorPicker",
+  "version": "1.0.2",
+  "_release": "1.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.0.2",
+    "commit": "a8983afb368eccec00bdf0e1cdd3365b7a6a35da"
+  },
+  "_source": "https://github.com/Belelros/jQuery-ColorPicker.git",
+  "_target": "^1.0.2",
+  "_originalSource": "jquery-colorpicker",
+  "_direct": true
+}

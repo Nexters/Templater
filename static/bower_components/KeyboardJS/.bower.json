@@ -1,0 +1,15 @@
+{
+  "name": "KeyboardJS",
+  "homepage": "https://github.com/RobertWHurst/KeyboardJS",
+  "version": "2.3.3",
+  "_release": "2.3.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.3.3",
+    "commit": "067e7b7d0b6d8519ac3ef14a714a9e605c6a694b"
+  },
+  "_source": "https://github.com/RobertWHurst/KeyboardJS.git",
+  "_target": "^2.3.3",
+  "_originalSource": "KeyboardJS",
+  "_direct": true
+}
