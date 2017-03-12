@@ -287,10 +287,9 @@
             ).on('keydown', function(e){
               if($(this).is(':focus')) {
                 e.stopPropagation();
-                e.preventDefault();
-
                 // Remove event
                 if(e.keyCode == 46) {
+                  e.preventDefault();
                   var prevX = $(this).position().left;
                   var prevY = $(this).position().top;
                   var removeEvent = getRemoveEvent($(this), {
@@ -300,6 +299,8 @@
 
                   _.events.push(removeEvent);
                   _.excute();
+                } else {
+                  return false;
                 }
               }
             })
