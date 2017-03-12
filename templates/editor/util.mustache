@@ -269,12 +269,13 @@
           }
         });
       }
-      if($handler.data('tool') === 'line') {
-        defaultSize.height = '2px';
-      }
 
       var $containers = $(".component");
       if (!$container) {
+        if($handler.data('tool') === 'line') {
+          defaultSize.height = '2px';
+        }
+
         var $newContainer = $stuff || (
             $('<div>',
               {
