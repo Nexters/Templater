@@ -23,7 +23,7 @@ window.Router = function (_, init) {
     panic();
   }
   var host = $(location).attr('protocol') + '//' + $(location).attr('host');
-  host = 'http://localhost:63342/Templater/Templater/web/';
+  host = 'https://nexters.github.io/Templater/';
 
   var router = {
     _table: function (url) {
