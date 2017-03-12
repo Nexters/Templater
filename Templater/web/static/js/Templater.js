@@ -64,12 +64,12 @@ window.Templater = function () {
     canvas: {},
     modules: {},
     convert: {
-      rgb2hex: function(rgb) {
-        if(!rgb) return;
+      rgb2hex: function (rgb) {
+        if (!rgb) return;
 
 
-        var hexDigits = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"];
-        var hex = function(x) {
+        var hexDigits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"];
+        var hex = function (x) {
           return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
         };
 
@@ -79,18 +79,18 @@ window.Templater = function () {
       }
     },
     get: {
-      params:  function(){
+      params: function () {
         var query_string = {};
         var query = window.location.search.substring(1);
         var vars = query.split("&");
-        for (var i=0;i<vars.length;i++) {
+        for (var i = 0; i < vars.length; i++) {
           var pair = vars[i].split("=");
           // If first entry with this name
           if (typeof query_string[pair[0]] === "undefined") {
             query_string[pair[0]] = decodeURIComponent(pair[1]);
             // If second entry with this name
           } else if (typeof query_string[pair[0]] === "string") {
-            var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+            var arr = [query_string[pair[0]], decodeURIComponent(pair[1])];
             query_string[pair[0]] = arr;
             // If third or later entry with this name
           } else {
@@ -161,7 +161,7 @@ window.Templater = function () {
       }
     },
     print: {
-      empty: function() {
+      empty: function () {
         $('article#article').empty();
         $('nav#nav').empty();
         $('aside#aside').empty();
@@ -210,11 +210,19 @@ window.Templater = function () {
       var self = this;
       var undo = this.undo;
       var redo = this.redo;
-      keyboardJS.on('ctrl > z', function () {
-        undo.call(self);
+      keyboardJS.on('ctrl > z', function (e) {
+        if (!$(e.target).is('textarea') &&
+          !$(e.target).is('input')) {
+          undo.call(self);
+          e.preventDefault();
+        }
       });
-      keyboardJS.on('ctrl > y', function () {
-        redo.call(self);
+      keyboardJS.on('ctrl > y', function (e) {
+        if (!$(e.target).is('textarea') &&
+          !$(e.target).is('input')) {
+          redo.call(self);
+          e.preventDefault();
+        }
       });
 
       parent = parent || this;
