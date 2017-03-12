@@ -1,113 +1,143 @@
 <style>
-    .editor-nav {
-        background-color: #57617d;
-    }
+  .editor-nav {
+    background-color: #57617d;
+  }
 
-    .editor-nav .frame {
-        padding: 10px;
-        font-size: 0;
-    }
+  .editor-nav .frame {
+    padding: 10px;
+    font-size: 0;
+  }
 
-    .editor-nav .frame .left {
-        display: inline-block;
-        width: 50%;
-    }
+  .editor-nav .frame .left {
+    display: inline-block;
+    width: 50%;
+  }
 
-    .editor-nav .frame .right {
-        display: inline-block;
-        width: 50%;
-        text-align: right;
-    }
+  .editor-nav .frame .right {
+    display: inline-block;
+    width: 50%;
+    text-align: right;
+  }
 
-    .editor-nav button.go-list {
-        padding: 0;
-        font-size: 0;
-        width: 40px;
-        height: 40px;
-        border: 0;
-        border-radius: 100%;
-        cursor: pointer;
-        margin-right: 10px;
-        vertical-align: middle;
-        background:none;
-    }
+  .editor-nav .go-list {
+    display: inline-block;
+    text-align: center;
+    padding: 0;
+    font-size: 0;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border: 0;
+    border-radius: 100%;
+    cursor: pointer;
+    margin-right: 10px;
+    vertical-align: middle;
+    background: none;
+  }
 
-    .editor-nav button.go-list:hover, .editor-nav button.go-list:active {
-        background-color: #4e5770;
-    }
+  .editor-nav .go-list:hover, .editor-nav .go-list:active {
+    background-color: #4e5770;
+  }
 
-    .editor-nav button.go-list:hover img {
-        width: 52%;
-    }
+  .editor-nav .go-list:hover img {
+    width: 52%;
+  }
 
-    .editor-nav button.go-list:active img {
-        width: 48%;
-    }
+  .editor-nav .go-list:active img {
+    width: 48%;
+  }
 
-    .editor-nav button.go-list img {
-        width: 50%;
-    }
+  .editor-nav .go-list img {
+    width: 50%;
+    vertical-align: middle;
+  }
 
-    .editor-nav label.document-title {
-        font-size: 1rem;
-        background-color: #6b748d;
-        color: #FFFFFF;
-        border-radius: 3px;
+  .editor-nav label.document-title {
+    font-size: 1rem;
+    background-color: #6b748d;
+    color: #FFFFFF;
+    border-radius: 3px;
 
-        display: inline-block;
-        padding: 0.3em 1.5em;
-        vertical-align: middle;
-    }
+    display: inline-block;
+    padding: 0.3em 1em;
+    vertical-align: middle;
 
-    .editor-nav .btn-group {
+    cursor:text;
+  }
 
-    }
+  .editor-nav label.document-title > input {
+    max-width: 470px;
+    padding: 0;
+    background: none;
+    border: 0;
+  }
 
-    .editor-nav .btn-group button {
-        font-size: 0.8rem;
-        vertical-align: middle;
-        background: none;
-        border: 0;
-        cursor: pointer;
-        margin-left: 20px;
-    }
+  .editor-nav .btn-group {
 
-    .editor-nav .btn-group button img {
-        width: 20px;
-        height: 20px;
-        vertical-align: middle;
-        margin-right: 8px;
-    }
+  }
 
-    .editor-nav .btn-group button span {
-        vertical-align: middle;
-        font-weight: bold;
-        color: #FFFFFF;
-    }
+  .editor-nav .btn-group button {
+    font-size: 0.8rem;
+    vertical-align: middle;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    margin-left: 20px;
+  }
+
+  .editor-nav .btn-group button img {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+
+  .editor-nav .btn-group button span {
+    vertical-align: middle;
+    font-weight: bold;
+    color: #FFFFFF;
+  }
 </style>
+<script>
+  $(document).on('keyup', 'input[name=document-title]', function (e) {
+    var value = $(this).val();
+    var virtualDom = $('<div style="display:inline-block; padding:inherit;">'+value+'</div>');
+    $(this).parent().append(virtualDom);
+    var fontSize = parseFloat(getComputedStyle($(this)[0]).fontSize);
+    var inputWidth = virtualDom.width();
+    var maxWidth = parseInt($(this).css('max-width').replace('px', ''));
+
+    if (maxWidth - fontSize > inputWidth) {
+      $(this).css('width', inputWidth);
+    }
+    virtualDom.remove();
+  });
+</script>
 <div class="editor-nav">
-    <div class="frame">
-        <div class="left">
-            <button class="go-list">
-                <img src="./static/images/back_to_list-01.svg">
-            </button>
-            <label class="document-title">{{ title }}</label>
-        </div>
-        <div class="right">
-            <div class="btn-group">
-                <button class="save">
-                    <img src="./static/images/save_icon-01.svg">
-                    <span>Save</span>
-                </button>
-                <button class="export">
-                    <img src="./static/images/export_icon-01.svg">
-                    <span>Export</span>
-                </button>
-                <button class="share">
-                    <img src="./static/images/share_icon-01.svg">
-                    <span>Share</span>
-                </button>
-            </div>
-        </div>
+  <div class="frame">
+    <div class="left">
+      <a class="go-list inner" href="/list">
+        <img src="./static/images/back_to_list-01.svg">
+      </a>
+      <label class="document-title">
+        <input type="textbox" name="document-title" value="{{ title }}">
+      </label>
     </div>
+    <div class="right">
+      <div class="btn-group">
+        <button class="save">
+          <img src="./static/images/save_icon-01.svg">
+          <span>Save</span>
+        </button>
+        <button class="export">
+          <img src="./static/images/export_icon-01.svg">
+          <span>Export</span>
+        </button>
+        <button class="share">
+          <img src="./static/images/share_icon-01.svg">
+          <span>Share</span>
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

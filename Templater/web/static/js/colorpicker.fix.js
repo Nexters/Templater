@@ -167,7 +167,7 @@
       current.preview = current.cal.data('colorpicker').livePreview;
       $(document).on('mouseup', current, upSelector);
       $(document).on('mousemove', current, moveSelector);
-      $(".colorpicker_color").off('click').one('click', current, moveSelector);
+      $(".colorpicker_color").off('click').on('click', current, moveSelector);
     },
       moveSelector = function (ev) {
         change.apply(

@@ -10,7 +10,7 @@
   }
 
   .editor-panel .editor-panel-title {
-    position:relative;
+    position: relative;
     background-color: #8995b6;
     color: #ffffff;
     padding: 5px 0 5px 15px;
@@ -23,7 +23,7 @@
   }
 
   .editor-panel .editor-panel-title .align-right {
-    float:right;
+    float: right;
   }
 
   .editor-panel .editor-panel-title span {
@@ -213,7 +213,7 @@
     addColorPicker($shapeColor);
 
     var $shapeTag = $('input[name=shape-tag]');
-    $shapeTag.on('change', function(){
+    $shapeTag.on('change', function () {
       var className = 'component-tag';
       var $style = $('style.' + className);
       var items = {
@@ -222,12 +222,22 @@
             'attributes': {
               'display': 'none'
             }
+          },
+          '.component.ui-resizable:not([data-id=NaN]).selected:after': {
+            'attributes': {
+              'display': 'none'
+            }
+          },
+          '.component.ui-resizable:not([data-id=NaN]):hover:after': {
+            'attributes': {
+              'display': 'none'
+            }
           }
         }
       };
       $style.remove();
 
-      if(!$(this).prop('checked')) {
+      if (!$(this).prop('checked')) {
         $('<style>', {rel: 'stylesheet', class: className, html: CSSJSON.toCSS(items)})
         .appendTo('head');
       }

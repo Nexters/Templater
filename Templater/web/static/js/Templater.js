@@ -67,6 +67,7 @@ window.Templater = function () {
       rgb2hex: function(rgb) {
         if(!rgb) return;
 
+
         var hexDigits = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"];
         var hex = function(x) {
           return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
@@ -78,16 +79,34 @@ window.Templater = function () {
       }
     },
     get: {
+      params:  function(){
+        var query_string = {};
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+          var pair = vars[i].split("=");
+          // If first entry with this name
+          if (typeof query_string[pair[0]] === "undefined") {
+            query_string[pair[0]] = decodeURIComponent(pair[1]);
+            // If second entry with this name
+          } else if (typeof query_string[pair[0]] === "string") {
+            var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+            query_string[pair[0]] = arr;
+            // If third or later entry with this name
+          } else {
+            query_string[pair[0]].push(decodeURIComponent(pair[1]));
+          }
+        }
+        return query_string;
+      },
       template: function (key) {
         var $head = $("head");
         var module = this._.modules[key];
+        $head.find("script." + key).remove();
+        $head.find("style." + key).remove();
 
-        if (module.script && $head.find("script." + key).length <= 0) {
-          $head.append("<script class='" + key + "'>" + module.script + "</script>");
-        }
-        if (module.style && $head.find("style." + key).length <= 0) {
-          $head.append("<style class='" + key + "'>" + module.style + "</style>");
-        }
+        $head.append("<script class='" + key + "'>" + module.script + "</script>");
+        $head.append("<style class='" + key + "'>" + module.style + "</style>");
 
         return module.template;
       }
@@ -142,6 +161,12 @@ window.Templater = function () {
       }
     },
     print: {
+      empty: function() {
+        $('article#article').empty();
+        $('nav#nav').empty();
+        $('aside#aside').empty();
+        $('footer#footer ~ *').remove();
+      },
       module_only: function (key, data, destination) {
         $("aside#aside [data-id=" + key + "]").remove();
         $(destination).empty();
@@ -150,6 +175,7 @@ window.Templater = function () {
       module: function (key, data, destination) {
         var template = this._.get.template(key);
         var $component = $("<div data-id='" + key + "'></div>").append(Mustache.render(template, data || {}));
+
         return function (x, y, z) {
           var attr = "";
           if (typeof x === "number") {

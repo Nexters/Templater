@@ -12,6 +12,7 @@
     overflow: hidden;
     max-width: 100%;
     opacity: 0.8;
+    color:#000000;
   }
 
   .component.ui-resizable:not([data-id=NaN]):hover:before {
@@ -39,6 +40,8 @@
   }
 
   .colorpicker {
+    top:-100%;
+    left:-100%;
     display:inline-block;
     width:auto;
     height:auto;
@@ -67,8 +70,8 @@
       var $target = $(e.target);
       if (!$target.hasClass('component') &&
         !$target.parents('div').hasClass('component') &&
-        !$target.hasClass('colorpicker_hue') &&
-        !$target.parents('div').hasClass('colorpicker_hue')
+        !$target.parents('div').hasClass('colorpicker') &&
+        !$target.parents('div').hasClass('editor-panel')
       ) {
         $(".editor-body .canvas .component.selected").removeClass("selected");
       }
@@ -129,6 +132,9 @@
                   $image
                 ];
 
+                $image.error(function(){
+                  alert("Please insert valuable url.");
+                });
                 $image.load(function(){
                   // add 이벤트 추가 및 실행
                   _.events.push(addEvent);
@@ -184,6 +190,7 @@
                 class: 'content'
               })
               .css({
+                color: '#000000',
                 border: 0,
                 padding: 'none',
                 margin: 'none',
@@ -273,10 +280,28 @@
               {
                 'class': 'component js_draggable_snap',
                 'data-type': $handler.data('tool'),
-                'data-id': $handler.data('tool') + $containers.length
+                'data-id': $handler.data('tool') + $containers.length,
+                'contenteditable': true
               }
-            )
+            ).on('keydown', function(e){
+              if($(this).is(':focus')) {
+                e.stopPropagation();
+                if(e.keyCode == 46) {
+                  console.log("??");
+                  var prevX = $(this).offset().left;
+                  var prevY = $(this).offset().top;
+                  var removeEvent = getRemoveEvent($(this), {
+                    prevX: prevX,
+                    prevY: prevY
+                  });
+
+                  _.events.push(removeEvent);
+                  _.excute();
+                }
+              }
+            })
             .css({
+              color: 'transparent',
               top: event.pageY - $canvas.offset().top,
               left: event.pageX - $canvas.offset().left,
               display: 'inline-block',
@@ -313,19 +338,11 @@
                 && ui.offset.left < canvasFin.left
                 && ui.offset.top < canvasFin.top)
               ) {
-                var removeEvent = new _.Event(_.CONST.EVENT.REMOVE, function () {
-                  var position = {
-                    left: prevX,
-                    top: prevY
-                  };
-                  ui.helper.hide();
-                  return function () {
-                    ui.helper
-                    .css("left", position.left)
-                    .css("top", position.top)
-                    .show();
-                  };
+                var removeEvent = getRemoveEvent(ui.helper, {
+                  prevX: prevX,
+                  prevY: prevY
                 });
+
                 _.events.push(removeEvent);
                 _.excute();
                 return;
@@ -392,7 +409,6 @@
           resize: function () {
             $(this).find('.content')
             .css({
-              display: 'inline-block',
               width: $(this).width() + 'px',
               height: $(this).height() + 'px'
             })
@@ -413,6 +429,7 @@
 
       select($container);
       $container.find('.content').css({
+        display: 'inline-block',
         width: $container.width() + 'px',
         height: $container.height() + 'px'
       });
@@ -425,9 +442,27 @@
       };
     }
 
+    function getRemoveEvent($component, args) {
+      return new _.Event(_.CONST.EVENT.REMOVE, function () {
+        var position = {
+          left: args.prevX,
+          top: args.prevY
+        };
+        $component.hide();
+        return function () {
+          $component
+          .css("left", position.left)
+          .css("top", position.top)
+          .show();
+        };
+      });
+    }
+
     function select($component) {
       $(".editor-body .canvas .component.selected").removeClass("selected");
-      $component.addClass('selected');
+      $component
+      .addClass('selected')
+      .focus();
 
       $('input[name=shape-width]').val($component.width());
       $('input[name=shape-height]').val($component.height());
